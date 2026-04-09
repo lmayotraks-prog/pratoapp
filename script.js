@@ -176,9 +176,40 @@ const mobileBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
 if (mobileBtn && navLinks) {
+    // Toggle main menu
     mobileBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
         mobileBtn.classList.toggle('open');
+    });
+
+    // Mobile Dropdown toggling logic
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('.nav-link');
+        if (link) {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    // Close other dropdowns
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) {
+                            d.classList.remove('active');
+                        }
+                    });
+                    // Toggle this dropdown
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            mobileBtn.classList.remove('open');
+            dropdowns.forEach(d => d.classList.remove('active'));
+        }
     });
 }
 

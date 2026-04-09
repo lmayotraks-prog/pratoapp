@@ -13,6 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- Preload Hero Background for LCP -->
+    <link rel="preload" href="https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg" as="image">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Base CSS -->
@@ -128,7 +130,7 @@
             <div class="bio-wrapper glass-panel">
                 <div class="bio-image-container">
                     <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prieto-Mid.png"
-                        alt="Doctor Martin Prato" class="bio-img" id="bio-img-placeholder">
+                        alt="Doctor Martin Prato" class="bio-img" id="bio-img-placeholder" loading="lazy">
                     <div class="bio-image-overlay"></div>
                 </div>
                 <div class="bio-content">
@@ -162,7 +164,7 @@
                 <div class="proc-center" style="flex: 1; min-width: 300px;">
                     <img src="https://www.doctormartinprato.com/wp-content/uploads/Diseno-de-Sonrisa-Dr-Martin-Prato-Bogota.png"
                         alt="Procedimientos Dr Prato"
-                        style="width:100%; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1);">
+                        style="width:100%; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1);" loading="lazy">
                 </div>
                 <div class="proc-list"
                     style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 1rem;">
@@ -194,7 +196,7 @@
             <div class="videos-grid">
                 <div class="video-container" data-video-id="-Y_GaseRBa8">
                     <div class="video-thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/-Y_GaseRBa8/hqdefault.jpg" alt="Testimonio 1">
+                        <img src="https://img.youtube.com/vi/-Y_GaseRBa8/hqdefault.jpg" alt="Testimonio 1" loading="lazy">
                         <div class="play-overlay">▶</div>
                     </div>
                 </div>
@@ -213,10 +215,10 @@
 
             <div class="ba-slider-grid">
                 <div class="gallery-item" style="border-radius:20px; overflow:hidden; border:1px solid var(--border-glass);">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues1CA7B944-82C0-4F06-A8D6-B1789C8156BF.jpg" style="width:100%;">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues1CA7B944-82C0-4F06-A8D6-B1789C8156BF.jpg" style="width:100%;" loading="lazy">
                 </div>
                 <div class="gallery-item" style="border-radius:20px; overflow:hidden; border:1px solid var(--border-glass);">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues7DB8667E-D792-431C-A498-4A7221E90F87.jpg" style="width:100%;">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues7DB8667E-D792-431C-A498-4A7221E90F87.jpg" style="width:100%;" loading="lazy">
                 </div>
             </div>
             <div style="text-align: center; margin-top: 30px;">
@@ -232,9 +234,9 @@
             <p class="section-subtitle">Figuras públicas que han confiado su sonrisa al Dr. Martín Prato.</p>
 
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF2D8089B8-A29F-4AE2-9FC4-ED808FAFA78A.jpeg" class="paciente-img" alt="Paciente Vip 1"></div>
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1494-2.jpg" class="paciente-img" alt="Paciente Vip 2"></div>
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A8709.jpg" class="paciente-img" alt="Paciente Vip 3"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF2D8089B8-A29F-4AE2-9FC4-ED808FAFA78A.jpeg" class="paciente-img" alt="Paciente Vip 1" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1494-2.jpg" class="paciente-img" alt="Paciente Vip 2" loading="lazy"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A8709.jpg" class="paciente-img" alt="Paciente Vip 3" loading="lazy"></div>
             </div>
             <div style="text-align: center; margin-top: 30px;">
                 <a href="galeria/nuestros-pacientes.html" class="btn-secondary">Ver todos nuestros pacientes</a>
@@ -250,15 +252,15 @@
 
             <div class="instalaciones-grid">
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg" alt="Lobby Clinica">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg" alt="Lobby Clinica" loading="lazy">
                     <div class="instalacion-overlay">Recepción VIP</div>
                 </div>
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-22.jpg" alt="Consultorio Premium">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-22.jpg" alt="Consultorio Premium" loading="lazy">
                     <div class="instalacion-overlay">Consultorios de Vanguardia</div>
                 </div>
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-16.jpg" alt="Tecnología Dental">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-16.jpg" alt="Tecnología Dental" loading="lazy">
                     <div class="instalacion-overlay">Laboratorio Digital CAD/CAM</div>
                 </div>
             </div>
