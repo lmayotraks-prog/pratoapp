@@ -38,9 +38,9 @@ class Particle {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         
-        // Colors adapt to theme variables via computed styles or standard logic
-        const accent = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent').trim();
-        const text = getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim();
+        // Colors adapt to theme variables via computed styles from body (where themes are applied)
+        const accent = getComputedStyle(document.body).getPropertyValue('--primary-accent').trim() || '#00d2ff';
+        const text = getComputedStyle(document.body).getPropertyValue('--text-main').trim() || '#111111';
         
         ctx.fillStyle = this.isCyan ? `${accent}88` : `${text}44`;
         ctx.shadowColor = accent;
@@ -72,7 +72,7 @@ function animateParticles() {
             const dy = particles[i].y - particles[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 120) {
-                const accent = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent').trim();
+                const accent = getComputedStyle(document.body).getPropertyValue('--primary-accent').trim() || '#00d2ff';
                 ctx.beginPath();
                 ctx.strokeStyle = `${accent}${Math.floor((0.15 - dist / 800) * 255).toString(16).padStart(2, '0')}`;
                 ctx.lineWidth = 0.6;
