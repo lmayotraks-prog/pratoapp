@@ -371,6 +371,11 @@ body.dark-mode .nav-link {
 }
 
 .nav-link:hover, .nav-link.active {
+    color: #111111 !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
     color: var(--neon-cyan) !important;
 }
 
