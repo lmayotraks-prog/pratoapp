@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blanqueamiento Dental | Dr. Martín Prato</title>
+    <meta name="description" content="Blanqueamiento dental profesional en consultorio y en casa. Dr. Martín Prato - Bogotá, Miami y México DF.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        /* ===== CONTENT STYLES ===== */
+        .service-content { padding: 3rem; border-radius: 24px; }
+        .service-content p { font-size: 1.15rem; line-height: 1.85; margin-bottom: 1.5rem; color: var(--text-muted); }
+        .service-content h2 { font-size: 2.2rem; margin-top: 3rem; margin-bottom: 1.2rem; color: var(--text-main); }
+        .intro-highlight { border-left: 4px solid var(--neon-cyan); padding: 1.5rem 2rem; background: rgba(0,210,255,0.05); border-radius: 0 16px 16px 0; margin-bottom: 2rem; }
+        body.dark-mode .intro-highlight { background: rgba(0,210,255,0.08); }
+
+        /* Info cards */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .info-card { background: var(--bg-glass); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-glass); border-top: 3px solid var(--neon-cyan); transition: transform 0.3s, box-shadow 0.3s; }
+        .info-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,210,255,0.15); }
+        .info-card-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+        .info-card-title { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--text-main); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .info-card-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+
+        .alert-box { background: rgba(0,210,255,0.06); border: 1px solid rgba(0,210,255,0.25); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0; font-size: 0.98rem; line-height: 1.7; color: var(--text-muted); }
+        .alert-box strong { color: var(--neon-cyan); }
+
+        .photo-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 2rem; }
+        .photo-gallery .gallery-item { border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass); aspect-ratio: 4/3; position: relative; }
+        .photo-gallery .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; transition: transform 0.6s ease; }
+        .photo-gallery .gallery-item:hover img { transform: scale(1.07); }
+        @media (max-width: 768px) { .service-content { padding: 1.5rem; } .service-content h2 { font-size: 1.7rem; } }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../galeria/fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="../galeria/antes-y-despues.html" class="dropdown-item">Antes y Después</a>
+                        <a href="../galeria/nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="../galeria/videos.html" class="dropdown-item">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="estetica-dental.html" class="dropdown-item">Estética dental</a>
+                        <a href="rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="endodoncia.html" class="dropdown-item">Endodoncia</a>
+                        <a href="periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="blanqueamiento.html" class="dropdown-item active">Blanqueamiento Dental</a>
+                        <a href="implantes.html" class="dropdown-item">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height:42vh;padding-top:8rem;padding-bottom:4rem;">
+        <div class="hero-overlay" style="background:url('https://www.doctormartinprato.com/wp-content/uploads/Diseno-de-Sonrisa-Dr-Martin-Prato-Bogota.png') center/cover no-repeat;opacity:0.35;"></div>
+        <div class="hero-content" style="margin-top:0;padding-top:4rem;text-align:center;align-items:center;">
+            <h1 class="hero-title"><span class="title-line gradient-text">BLANQUEAMIENTO DENTAL</span></h1>
+            <p class="hero-subtitle" style="text-align:center;max-width:700px;margin:1rem auto 0;">Dientes más blancos y brillantes en una sola sesión con tecnología de última generación.</p>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top:2rem;">
+        <div class="container">
+            <div class="glass-panel service-content">
+                <div class="intro-highlight">
+                    <p style="margin-bottom:0;">En la odontología estética, el <span class="neon-text">blanqueamiento dental</span> es un tratamiento que logra reducir varios tonos el color original de las piezas dentales, dejando los dientes más blancos y brillantes. Se puede realizar en consultorio o en el hogar con supervisión profesional.</p>
+                </div>
+
+                <p>El blanqueamiento permite eliminar la mayoría de manchas producidas por causas extrínsecas como té, café, cigarrillos, vino tinto y otras sustancias. Sin embargo, no todas las manchas son eliminables mediante blanqueamiento y pueden requerir otros tratamientos como carillas de porcelana.</p>
+
+                <div class="alert-box">
+                    <strong>⚠️ Importante:</strong> El blanqueamiento no tiene efecto sobre restauraciones existentes (resinas, coronas, incrustaciones). Si tienes restauraciones en el sector anterior, primero se realiza el blanqueamiento y luego se reemplazan para lograr una sonrisa uniformemente blanca. Se debe esperar ~15 días para que el color se estabilice.
+                </div>
+
+                <h2>Opciones de <span class="neon-text">Blanqueamiento</span></h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">En Consultorio</h3>
+                        <p class="info-card-text">Tecnología LED de última generación con agentes blanqueadores de alta concentración. Resultados visibles desde la primera sesión. El proceso más rápido y eficaz disponible para blanquear varios tonos en poco tiempo.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🏠</div>
+                        <h3 class="info-card-title">En Casa</h3>
+                        <p class="info-card-text">Cubetas personalizadas con geles de concentración controlada, diseñadas por el Dr. Prato para que realices el tratamiento de forma segura y efectiva desde tu hogar, con seguimiento profesional.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">✅</div>
+                        <h3 class="info-card-title">Resultado Garantizado</h3>
+                        <p class="info-card-text">Evaluamos el estado de tus dientes antes de comenzar. Las restauraciones previas se reemplazan después del blanqueamiento para lograr una sonrisa uniformemente blanca y natural.</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top:2rem;text-align:center;">Galería de <span class="neon-text">Resultados</span></h2>
+                <p style="text-align:center;margin-bottom:0.5rem;">Transformaciones reales de nuestros pacientes</p>
+                <div class="photo-gallery">
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues1CA7B944-82C0-4F06-A8D6-B1789C8156BF.jpg" alt="Blanqueamiento Resultado 1" loading="lazy"></div>
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-DespuesF9A78DFB-5DD9-4F7E-AE66-03C89D07AE69.jpg" alt="Blanqueamiento Resultado 2" loading="lazy"></div>
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Diseno-de-Sonrisa-Dr-Martin-Prato-Bogota.png" alt="Diseño de Sonrisa Bogotá" loading="lazy"></div>
+                </div>
+
+                <div style="margin-top:4rem;text-align:center;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+                    <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn">Quiero Dientes más Blancos</a>
+                    <a href="../index.html#skills" class="btn btn-secondary glass-btn">Volver a Procedimientos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top:4rem;padding:2rem;text-align:center;color:var(--text-muted);border-top:1px solid var(--border-glass);">
+        <p>Doctormartinprato.com &copy; 2026. Designed with precision.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html>

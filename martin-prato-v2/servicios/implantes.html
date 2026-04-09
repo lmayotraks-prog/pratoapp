@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirugía Oral | Dr. Martín Prato</title>
+    <meta name="description" content="Especialistas en cirugía oral, extracciones y patologías. Dr. Martín Prato - Bogotá, Miami y México DF.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        /* ===== CONTENT STYLES ===== */
+        .service-content { padding: 3rem; border-radius: 24px; }
+        .service-content p { font-size: 1.15rem; line-height: 1.85; margin-bottom: 1.5rem; color: var(--text-muted); }
+        .service-content h2 { font-size: 2.2rem; margin-top: 3rem; margin-bottom: 1.2rem; color: var(--text-main); }
+        .intro-highlight { border-left: 4px solid var(--neon-cyan); padding: 1.5rem 2rem; background: rgba(0,210,255,0.05); border-radius: 0 16px 16px 0; margin-bottom: 2rem; }
+        body.dark-mode .intro-highlight { background: rgba(0,210,255,0.08); }
+
+        .service-list { list-style-type: none; padding-left: 0; margin-bottom: 2rem; }
+        .service-list li { font-size: 1.05rem; margin-bottom: 0.6rem; display: flex; align-items: flex-start; gap: 10px; color: var(--text-main); padding: 0.6rem 0; border-bottom: 1px solid var(--border-glass); }
+        .service-list li .icon { color: var(--neon-cyan); flex-shrink: 0; margin-top: 2px; }
+
+        .photo-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 2rem; }
+        .photo-gallery .gallery-item { border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass); aspect-ratio: 4/3; position: relative; }
+        .photo-gallery .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; transition: transform 0.6s ease; }
+        .photo-gallery .gallery-item:hover img { transform: scale(1.07); }
+        @media (max-width: 768px) { .service-content { padding: 1.5rem; } .service-content h2 { font-size: 1.7rem; } }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../galeria/fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="../galeria/antes-y-despues.html" class="dropdown-item">Antes y Después</a>
+                        <a href="../galeria/nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="../galeria/videos.html" class="dropdown-item">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="estetica-dental.html" class="dropdown-item">Estética dental</a>
+                        <a href="rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="endodoncia.html" class="dropdown-item">Endodoncia</a>
+                        <a href="periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="blanqueamiento.html" class="dropdown-item">Blanqueamiento Dental</a>
+                        <a href="implantes.html" class="dropdown-item active">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height:42vh;padding-top:8rem;padding-bottom:4rem;">
+        <div class="hero-overlay" style="background:url('https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg') center/cover no-repeat;opacity:0.35;"></div>
+        <div class="hero-content" style="margin-top:0;padding-top:4rem;text-align:center;align-items:center;">
+            <h1 class="hero-title"><span class="title-line gradient-text">CIRUGÍA ORAL</span></h1>
+            <p class="hero-subtitle" style="text-align:center;max-width:700px;margin:1rem auto 0;">Procedimientos quirúrgicos seguros con tecnología avanzada para tu salud bucal.</p>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top:2rem;">
+        <div class="container">
+            <div class="glass-panel service-content">
+                <div class="intro-highlight">
+                    <p style="margin-bottom:0;">La <span class="neon-text">cirugía oral</span> es una especialidad médica que tiene a su cargo todos los actos quirúrgicos relacionados con las extracciones de dientes que presentan imposibilidad de mantenimiento en la cavidad oral.</p>
+                </div>
+
+                <p>Se enfoca en particular en dientes con lesiones de caries muy extensas y no restaurables, dientes sin soporte óseo, dientes incluidos, entre otros problemas complejos que requieren intervención experta.</p>
+                
+                <h2>Diagnóstico y <span class="neon-text">Tratamiento</span></h2>
+                <p>Nuestra práctica incluye el diagnóstico precoz de lesiones de la región de la cabeza y del cuello como tumores y quistes, que tengan relación directa o indirecta con las estructuras orales.</p>
+
+                <ul class="service-list">
+                    <li><span class="icon">◆</span> Biopsia de lesiones que afectan a las mucosas</li>
+                    <li><span class="icon">◆</span> Extracción de dientes impactados o incluidos</li>
+                    <li><span class="icon">◆</span> Ennucleación de quistes</li>
+                    <li><span class="icon">◆</span> Ventanas quirúrgicas para ortodoncia</li>
+                    <li><span class="icon">◆</span> Cirugía pre-protésica</li>
+                </ul>
+
+                <h2 style="margin-top:2rem;text-align:center;">Galería de <span class="neon-text">Cirugía Oral</span></h2>
+                <div class="photo-gallery">
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-DespuesA3B22DC2-BC6B-42E1-9A2F-7A1E5F2A289F.jpeg" alt="Caso Cirugía 1" loading="lazy"></div>
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-DespuesIMG_4002.jpg" alt="Caso Cirugía 2" loading="lazy"></div>
+                    <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues7DB8667E-D792-431C-A498-4A7221E90F87.jpg" alt="Caso Cirugía 3" loading="lazy"></div>
+                </div>
+
+                <div style="margin-top:4rem;text-align:center;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
+                    <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn">Consultar Especialista</a>
+                    <a href="../index.html#skills" class="btn btn-secondary glass-btn">Volver a Procedimientos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top:4rem;padding:2rem;text-align:center;color:var(--text-muted);border-top:1px solid var(--border-glass);">
+        <p>Doctormartinprato.com &copy; 2026. Designed with precision.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html>

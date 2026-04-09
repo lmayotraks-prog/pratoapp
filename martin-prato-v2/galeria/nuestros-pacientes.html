@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Clínica | Dr. Martín Prato</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        .service-header {
+            padding: 160px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
+        }
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 1/1;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="dark-mode"> <!-- Pre-set to theme-aware -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Global Cursor -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="antes-y-despues.html" class="dropdown-item active">Antes y Después</a>
+                        <a href="nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="videos.html" class="dropdown-item">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../servicios/estetica-dental.html" class="dropdown-item">Estética dental</a>
+                        <a href="../servicios/rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="../servicios/endodoncia.html" class="dropdown-item">Endodoncia</a>
+                        <a href="../servicios/periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="../servicios/blanqueamiento.html" class="dropdown-item">Blanqueamiento Dental</a>
+                        <a href="../servicios/implantes.html" class="dropdown-item">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="service-header" style="padding-top: 160px; text-align: center;">
+        <div class="container">
+            <h1 class="section-title">Nuestra <span class="neon-text">Galería Clínica</span></h1>
+            <p class="section-subtitle">Explora los detalles de nuestros procedimientos y la excelencia de nuestras instalaciones.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- General Clinic Photos from the original /fotos/ section -->
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF2D8089B8-A29F-4AE2-9FC4-ED808FAFA78A.jpeg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1494-2.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A8709.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1502.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DFE374ECF7-3385-4E82-A0C1-C9AF8D5345A7-1.jpeg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A9748-2.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DFIMG_0087.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A9577-2-1.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF9E4F45CB-774A-41A5-9027-99196F4D391F.jpeg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A0715-2-rotated.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1686.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A8749-2.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DFfoto-de-paciente-sonrriendo-1.png" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DFIMG_1287.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF45DFEC77-DA04-4460-955B-71839AB14307.jpeg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1047-2.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A4439.jpg" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DFIMG_2896.png" alt="Procedimiento Dental"></div>
+                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A9517.jpg" alt="Procedimiento Dental"></div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="../index.html" class="nav-back">← Volver al Inicio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container text-left" style="text-align: left;">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">DR. MARTÍN <span class="neon-text">PRATO</span></div>
+                    <p class="footer-description">Arquitecto de Sonrisas. Especialista en alta estética dental y rehabilitación oral en Bogotá y México.</p>
+                </div>
+                
+                <div class="footer-col" style="padding-left: 20px;">
+                    <h4>Galería</h4>
+                    <ul class="footer-links">
+                        <li><a href="fotos.html">Fotos VIP</a></li>
+                        <li><a href="antes-y-despues.html">Antes y Después</a></li>
+                        <li><a href="nuestros-pacientes.html">Galería Clínica</a></li>
+                        <li><a href="videos.html">Video Testimonios</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Procedimientos</h4>
+                    <ul class="footer-links">
+                        <li><a href="../servicios/estetica-dental.html">Estética Dental</a></li>
+                        <li><a href="../servicios/implantes.html">Implantes Dentales</a></li>
+                        <li><a href="../servicios/rehabilitacion-oral.html">Rehabilitación Oral</a></li>
+                        <li><a href="../servicios/endodoncia.html">Endodoncia VIP</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fab fa-whatsapp"></i> <span>+57 302 278-0781</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>Bog: Calle 127A # 7-19, Of. 308</span></li>
+                    </ul>
+                    <div class="social-footer">
+                        <a href="https://www.instagram.com/martinprato" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/DrMartinPrato/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom-bar" style="padding-top: 20px;">
+                <p>&copy; 2026 Dr. Martín Prato. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

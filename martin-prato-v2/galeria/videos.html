@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Testimonios | Dr. Martín Prato</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body class="dark-mode">
+    <canvas id="bg-canvas"></canvas>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="antes-y-despues.html" class="dropdown-item">Antes y Después</a>
+                        <a href="nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="videos.html" class="dropdown-item active">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../servicios/estetica-dental.html" class="dropdown-item">Estética dental</a>
+                        <a href="../servicios/rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="../servicios/endodoncia.html" class="dropdown-item">Endodoncia</a>
+                        <a href="../servicios/periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="../servicios/blanqueamiento.html" class="dropdown-item">Blanqueamiento Dental</a>
+                        <a href="../servicios/implantes.html" class="dropdown-item">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="service-header" style="padding-top: 160px; text-align: center;">
+        <div class="container">
+            <h1 class="section-title">Video <span class="neon-text">Testimonios</span></h1>
+            <p class="section-subtitle">Historias reales de pacientes reales que transformaron su vida con el Dr. Martín Prato.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="videos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Video 1 -->
+                <div class="video-container" data-video-id="450363486" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363486.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-container" data-video-id="450363769" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363769.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 3 -->
+                <div class="video-container" data-video-id="450363707" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363707.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 4 -->
+                <div class="video-container" data-video-id="450361568" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450361568.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 5 -->
+                <div class="video-container" data-video-id="450362735" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450362735.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 6 -->
+                <div class="video-container" data-video-id="450363094" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363094.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 7 -->
+                <div class="video-container" data-video-id="450363198" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363198.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 8 -->
+                <div class="video-container" data-video-id="450363184" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363184.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 9 -->
+                <div class="video-container" data-video-id="450363562" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363562.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 10 -->
+                <div class="video-container" data-video-id="450363269" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363269.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 11 -->
+                <div class="video-container" data-video-id="450363390" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450363390.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 12 -->
+                <div class="video-container" data-video-id="450362527" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450362527.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 13 -->
+                <div class="video-container" data-video-id="450362318" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450362318.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Video 14 -->
+                <div class="video-container" data-video-id="450361884" data-video-type="vimeo">
+                    <div class="video-thumbnail-wrapper" style="border-radius:20px; overflow:hidden; position:relative; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <img src="https://vumbnail.com/450361884.jpg" style="width:100%; height:220px; object-fit:cover;">
+                        <div class="play-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.2); font-size:4rem; color:var(--neon-cyan); transition:0.3s;">
+                            <i class="fas fa-play-circle shadow-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="../index.html" class="nav-back">← Volver al Inicio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Video Modal -->
+    <div id="video-modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content-wrapper">
+            <div class="video-responsive-container" id="modal-video-container">
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container text-left" style="text-align: left;">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">DR. MARTÍN <span class="neon-text">PRATO</span></div>
+                    <p class="footer-description">Arquitecto de Sonrisas. Especialista en alta estética dental y rehabilitación oral en Bogotá y México.</p>
+                </div>
+                
+                <div class="footer-col" style="padding-left: 20px;">
+                    <h4>Galería</h4>
+                    <ul class="footer-links">
+                        <li><a href="fotos.html">Fotos VIP</a></li>
+                        <li><a href="antes-y-despues.html">Antes y Después</a></li>
+                        <li><a href="nuestros-pacientes.html">Galería Clínica</a></li>
+                        <li><a href="videos.html">Video Testimonios</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Procedimientos</h4>
+                    <ul class="footer-links">
+                        <li><a href="../servicios/estetica-dental.html">Estética Dental</a></li>
+                        <li><a href="../servicios/implantes.html">Implantes Dentales</a></li>
+                        <li><a href="../servicios/rehabilitacion-oral.html">Rehabilitación Oral</a></li>
+                        <li><a href="../servicios/endodoncia.html">Endodoncia VIP</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fab fa-whatsapp"></i> <span>+57 302 278-0781</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>Bog: Calle 127A # 7-19, Of. 308</span></li>
+                    </ul>
+                    <div class="social-footer">
+                        <a href="https://www.instagram.com/martinprato" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/DrMartinPrato/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Dr. Martín Prato. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html>

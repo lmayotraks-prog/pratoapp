@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP CRM | Dr. Martin Prato</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #fafafa;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(212, 175, 55, 0.3);
+            --accent-gold: #d4af37;
+            --text-main: #111111;
+            --text-muted: #555555;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-glass);
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #fafafa;
+            border-left: 4px solid var(--accent-gold);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .stat-card h3 { margin: 0 0 0.5rem 0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; }
+        .stat-card p { margin: 0; font-size: 2rem; font-weight: 600; color: var(--text-main); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            font-family: 'Cinzel', serif;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #fdfdfd;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* Real-time Indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Administración VIP · Dr. Martin Prato</h1>
+
+    <div class="dashboard">
+        <div class="live-indicator">
+            <div class="live-dot"></div>
+            Sistema CRM Activo en Tiempo Real
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Leads VIP</h3>
+                <p id="total-leads">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Diseños de Sonrisa</h3>
+                <p id="total-ds">0</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre VIP</th>
+                    <th>Contacto</th>
+                    <th>Servicio Deseado</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="leads-table-body">
+                <!-- Data injected via JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const tableBody = document.getElementById('leads-table-body');
+        const totalLeadsEl = document.getElementById('total-leads');
+        const totalDSEl = document.getElementById('total-ds');
+
+        function formatDate(isoString) {
+            const d = new Date(isoString);
+            return d.toLocaleDateString('es-ES') + ' ' + d.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function renderLeads() {
+            const leads = JSON.parse(localStorage.getItem('vip_leads') || '[]');
+            
+            // Stats
+            totalLeadsEl.innerText = leads.length;
+            totalDSEl.innerText = leads.filter(l => l.service === 'Estética Dental').length;
+
+            tableBody.innerHTML = '';
+            leads.reverse().forEach(lead => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${formatDate(lead.date)}</td>
+                    <td style="font-weight: 500;">${lead.name}</td>
+                    <td>
+                        <div>${lead.phone}</div>
+                        <div style="font-size: 0.85rem; color: #777;">${lead.email}</div>
+                    </td>
+                    <td>${lead.service}</td>
+                    <td><span class="status-badge">Nuevo Lead</span></td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Initial render
+        renderLeads();
+
+        // Listen for real-time updates via BroadcastChannel
+        const channel = new BroadcastChannel('vip_leads_channel');
+        channel.onmessage = (event) => {
+            if (event.data.type === 'NEW_LEAD') {
+                // Play subtle notification sound
+                console.log('New Lead Received!', event.data.lead);
+                renderLeads();
+            }
+        };
+    </script>
+</body>
+</html>

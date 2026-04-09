@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endodoncia | Dr. Martin Prato</title>
+    <meta name="description" content="Tratamiento de endodoncia especializado - Dr. Martin Prato. Bogotá, Miami y México DF.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        /* ===== CONTENT ===== */
+        .service-content {
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: left;
+        }
+        .service-content p {
+            font-size: 1.15rem;
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .service-content h2 {
+            font-size: 2.2rem;
+            margin-top: 3rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+        .service-content h4 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--neon-cyan);
+            font-weight: 500;
+        }
+        .service-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 2rem;
+        }
+        .service-list li {
+            font-size: 1.05rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-main);
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .service-list li .icon { color: var(--neon-cyan); flex-shrink: 0; margin-top: 2px; }
+
+        .intro-highlight {
+            border-left: 4px solid var(--neon-cyan);
+            padding: 1.5rem 2rem;
+            background: rgba(0,210,255,0.05);
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 2rem;
+        }
+        body.dark-mode .intro-highlight { background: rgba(0,210,255,0.08); }
+
+        .alert-box {
+            background: rgba(0,210,255,0.06);
+            border: 1px solid rgba(0,210,255,0.25);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        body.dark-mode .alert-box { background: rgba(0,210,255,0.08); }
+        .alert-box strong { color: var(--neon-cyan); }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 2rem;
+        }
+        .photo-gallery .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+            aspect-ratio: 4/3;
+            position: relative;
+        }
+        .photo-gallery .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            position: absolute; top: 0; left: 0;
+            transition: transform 0.6s ease;
+        }
+        .photo-gallery .gallery-item:hover img { transform: scale(1.07); }
+
+        @media (max-width: 768px) {
+            .service-content { padding: 1.5rem; }
+            .service-content h2 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Theme Selection Bar -->
+    <div class="theme-selector-wrap">
+        <div class="theme-swatch" data-theme-name="diamond" title="Diamond Platinum">
+            <span class="theme-label">Diamond</span>
+        </div>
+        <div class="theme-swatch" data-theme-name="gold" title="Luxury Gold">
+            <span class="theme-label">Gold</span>
+        </div>
+        <div class="theme-swatch" data-theme-name="emerald" title="Emerald Nature">
+            <span class="theme-label">Emerald</span>
+        </div>
+        <div class="theme-swatch" data-theme-name="ruby" title="Ruby Rose">
+            <span class="theme-label">Ruby</span>
+        </div>
+        <div class="theme-swatch" data-theme-name="amethyst" title="Amethyst Night">
+            <span class="theme-label">Amethyst</span>
+        </div>
+    </div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../galeria/fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="../galeria/antes-y-despues.html" class="dropdown-item">Antes y Después</a>
+                        <a href="../galeria/nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="../galeria/videos.html" class="dropdown-item">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="estetica-dental.html" class="dropdown-item">Estética dental</a>
+                        <a href="rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="endodoncia.html" class="dropdown-item active">Endodoncia</a>
+                        <a href="periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="blanqueamiento.html" class="dropdown-item">Blanqueamiento Dental</a>
+                        <a href="implantes.html" class="dropdown-item">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero" style="min-height: 42vh; padding-top: 8rem; padding-bottom: 4rem;">
+        <div class="hero-overlay" style="background: url('https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg') center/cover no-repeat; opacity: 0.35;"></div>
+        <div class="hero-content" style="margin-top: 0; padding-top: 4rem; text-align: center; align-items: center;">
+            <h1 class="hero-title">
+                <span class="title-line gradient-text">ENDODONCIA</span>
+            </h1>
+            <p class="hero-subtitle" style="text-align: center; max-width: 700px; margin: 1rem auto 0;">Salvamos tus dientes naturales. Tratamientos de conducto con tecnología de precisión.</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="glass-panel service-content">
+
+                <div class="intro-highlight">
+                    <p style="margin-bottom: 0;">
+                        La <span class="neon-text">endodoncia</span> consiste en la extirpación total de la pulpa dental. Se aplica en piezas dentales fracturadas, con caries profundas que presentan lesiones en su tejido pulpar que se conocen como <strong>pulpitis</strong>.
+                    </p>
+                </div>
+
+                <p>
+                    Esta condición es irreversible y la única opción terapéutica es la extirpación total de la pulpa dental y la obturación tridimensional del conducto dentario. La pulpitis está frecuentemente provocada por caries dentales profundas que alcanzan la pulpa y producen infección, originando dolor continuo y permanente que aumenta con estímulos fríos, calientes, alimentos dulces o ácidos.
+                </p>
+
+                <h2>¿Cuándo se indica la <span class="neon-text">Endodoncia</span>?</h2>
+                <p>No siempre estará indicada la endodoncia en dientes con pulpa necrótica o lesión irreversible. Se puede optar por la extracción de la pieza dental cuando:</p>
+                <ul class="service-list">
+                    <li><span class="icon">◆</span> Existe imposibilidad de restaurar la pieza dental</li>
+                    <li><span class="icon">◆</span> Se han producido reabsorciones dentales importantes</li>
+                    <li><span class="icon">◆</span> Existen perforaciones de las raíces dentales</li>
+                    <li><span class="icon">◆</span> Presencia de fracturas verticales</li>
+                    <li><span class="icon">◆</span> Enfermedad periodontal grave</li>
+                    <li><span class="icon">◆</span> Dientes sin valor estético o funcional (ej. muelas del juicio sin antagonista)</li>
+                </ul>
+
+                <div class="alert-box">
+                    <strong>⚠️ Importante:</strong> En manos del especialista adecuado, la endodoncia es un procedimiento predecible y eficaz que permite conservar el diente natural por muchos años, evitando la necesidad de extracciones e implantes.
+                </div>
+
+                <h2 style="margin-top: 3rem; text-align: center;">Resultados de <span class="neon-text">Tratamiento</span></h2>
+                <p style="text-align: center; margin-bottom: 0.5rem;">Protegiendo y conservando tu salud dental.</p>
+
+                <div class="photo-gallery">
+                    <div class="gallery-item">
+                        <img src="img/endodoncia_14.jpg" alt="Finalización Endodoncia" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/endodoncia_16.jpg" alt="Proceso Endodoncia" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="img/endodoncia_9.jpg" alt="Tratamiento Endodoncia" loading="lazy">
+                    </div>
+                </div>
+
+                <div style="margin-top: 4rem; text-align: center; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn">Consulta Especialista</a>
+                    <a href="../index.html#skills" class="btn btn-secondary glass-btn">Volver a Procedimientos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 4rem; padding: 2rem; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-glass);">
+        <p>Doctormartinprato.com &copy; 2026. Designed with precision.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

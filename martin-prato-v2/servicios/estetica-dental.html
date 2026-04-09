@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estética Dental | Dr. Martin Prato</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        /* ===== CONTENT STYLES ===== */
+        .service-content {
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: left;
+        }
+        .service-content p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+        .service-content h2 {
+            font-size: 2.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .service-content h4 {
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem;
+            color: var(--neon-cyan);
+            font-weight: 500;
+        }
+        .service-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 2rem;
+        }
+        .service-list li {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-main);
+        }
+        .service-list li span {
+            color: var(--neon-cyan);
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        @media (max-width: 768px) {
+            .service-content { padding: 1.5rem; }
+            .service-content h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Neural Network Background Effect -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">
+                <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
+                    alt="Doctor Martin Prato Logo" class="nav-logo-img">
+                <span class="neon-text"></span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Inicio</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Galería ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../galeria/fotos.html" class="dropdown-item">Fotos</a>
+                        <a href="../galeria/antes-y-despues.html" class="dropdown-item">Antes y Después</a>
+                        <a href="../galeria/nuestros-pacientes.html" class="dropdown-item">Nuestros Pacientes</a>
+                        <a href="../galeria/videos.html" class="dropdown-item">Videos</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link active">Procedimientos ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="estetica-dental.html" class="dropdown-item active">Estética dental</a>
+                        <a href="rehabilitacion-oral.html" class="dropdown-item">Rehabilitación oral</a>
+                        <a href="endodoncia.html" class="dropdown-item">Endodoncia</a>
+                        <a href="periodoncia.html" class="dropdown-item">Periodoncia</a>
+                        <a href="blanqueamiento.html" class="dropdown-item">Blanqueamiento Dental</a>
+                        <a href="implantes.html" class="dropdown-item">Implantes dentales</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Instalaciones ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="../index.html#store" class="dropdown-item">Sedes</a>
+                    </div>
+                </div>
+                
+                <a href="../index.html#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
+
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" style="min-height: 40vh; padding-top: 8rem; padding-bottom: 4rem;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line gradient-text">ESTÉTICA DENTAL</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- Content Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="glass-panel service-content">
+                <p>
+                    La estética y funcionalidad de los dientes de cada persona depende de su aspecto físico, una sonrisa define y caracteriza a cada persona, pero su armonía puede verse afectada por el desequilibrio de tejidos duros, huesos y encía, razón por la cual, el diseño de sonrisa es pieza fundamental tras la ejecución de cualquier tratamiento odontológico.
+                </p>
+                <p>
+                    Para realizar un diseño de sonrisa, es necesario efectuar diagnósticos precisos y completos que definan las condiciones iniciales exactas de cada paciente, donde se tienen en cuenta las facciones naturales del rostro, posición, forma, tamaño y color de los dientes. De las características iniciales depende el tratamiento a realizar y por ende, los resultados, ya que puede ser suficiente realizar un blanqueamiento o acompañarlo con resinas, ortodoncia o, inclusive, implantes dentales para obtener resultados increíbles.
+                </p>
+
+                <h2><span class="neon-text">Diseño de sonrisa</span> en resina</h2>
+                <p>
+                    Es el procedimiento de diseño de sonrisa más común, es un modelo simple, rápido y que genera mínimas molestias en los pacientes. Es ideal para sonrisas que no requieren mucho cambio, sino que posiblemente requieren modificaciones en la alineación de los dientes, poseen manchas superficiales, y pequeñas variaciones en el tamaño.
+                </p>
+
+                <h4>Para este caso se realizan algunos de los siguientes tratamientos:</h4>
+                <ul class="service-list">
+                    <li><span>🦷</span> Recorte de encías, unificando el tamaño de los dientes.</li>
+                    <li><span>🦷</span> Blanqueamiento dental</li>
+                    <li><span>🦷</span> Diseño de resinas</li>
+                    <li><span>🦷</span> Profilaxis y limpieza dental</li>
+                    <li><span>🦷</span> Micropulido de los bordes dentales</li>
+                    <li><span>🦷</span> Microabrasión de esmalte para remover manchas superficiales</li>
+                </ul>
+
+                <h2><span class="neon-text">Diseño de sonrisa</span> en porcelana</h2>
+                <p>
+                    Las carillas dentales son una gran alternativa para crear la sonrisa que siempre se ha deseado, las carillas son piezas muy finas de porcelana de forma especial que se ponen sobre la parte frontal de los dientes. Para utilizar carillas no se requiere eliminar una cantidad significativa de los dientes. Por lo general, sólo se tiene que tallar muy poco los dientes. Esto es importante, ya que reduce la posibilidad de dañar sus dientes de forma irreversible.
+                </p>
+                <p style="color: var(--neon-cyan); font-weight: 600; text-shadow: var(--glow-cyan);">
+                    Con este sistema se pueden obtener resultados en 1 semana.
+                </p>
+                
+                <h2 style="margin-top: 4rem; text-align: center;">Galería de <span class="neon-text">Estética Dental</span></h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Resultados excepcionales y acabados perfectos garantizados.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; align-items: center;">
+                    <div class="gallery-item" style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass);">
+                        <img src="img/estetica_1.jpg" alt="Caso de Estética Dental 1" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; transition: transform 0.5s ease;">
+                    </div>
+                    <div class="gallery-item" style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass);">
+                        <img src="img/estetica_4.jpg" alt="Caso de Estética Dental 2" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; transition: transform 0.5s ease;">
+                    </div>
+                    <div class="gallery-item" style="border-radius: 16px; overflow: hidden; border: 1px solid var(--border-glass);">
+                        <img src="img/estetica_5.jpg" alt="Caso de Estética Dental 3" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px; transition: transform 0.5s ease;">
+                    </div>
+                </div>
+                
+                <div style="margin-top: 4rem; text-align: center; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn">Agendar Cita Ahora</a>
+                    <a href="../index.html#skills" class="btn btn-secondary glass-btn">Volver a Procedimientos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding: 2rem; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-glass);">
+        <p>Doctormartinprato.com &copy; 2026. Designed with precision.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../script.js"></script>
+</body>
+
+</html>
