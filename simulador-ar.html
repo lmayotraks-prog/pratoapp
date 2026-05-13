@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Martin Prato | Simulador AR & 3D Virtual Try-On</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="index.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #050505; /* Black matte for luxury */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ar-container {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ar-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ar-header p {
+            color: #aaa;
+            font-weight: 300;
+        }
+
+        .ar-workspace {
+            display: flex;
+            gap: 2rem;
+            width: 90%;
+            max-width: 1400px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .ar-panel {
+            flex: 1;
+            min-width: 350px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .webcam-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #webcam {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            transform: scaleX(-1);
+        }
+
+        .controls {
+            margin-top: 1.5rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-luxury {
+            background: transparent;
+            border: 1px solid var(--primary, #d4af37);
+            color: var(--primary, #d4af37);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        .btn-luxury:hover, .btn-luxury.active {
+            background: var(--primary, #d4af37);
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: var(--primary, #d4af37);
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 350px;
+            background-color: transparent;
+            --poster-color: transparent;
+        }
+        
+        .loading-ar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top: 3px solid #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <span class="neon-text" style="font-family: 'Cinzel'; font-size: 1.5rem; font-weight: 800; color: #fff;">DR. MARTÍN PRATO</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Volver al Inicio</a>
+                <a href="analisis-ia.html" class="nav-link">Análisis IA</a>
+                <a href="dashboard-vip.html" class="nav-link btn-primary glow-btn">Portal Privado</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="ar-container">
+        <div class="ar-header">
+            <h1>Virtual Try-On <span style="color: #d4af37;">&</span> AR Mirror</h1>
+            <p>Experimenta tu nueva sonrisa en tiempo real con tecnología WebAssembly</p>
+        </div>
+
+        <div class="ar-workspace">
+            <!-- Left Panel: Webcam AR -->
+            <div class="ar-panel">
+                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-camera"></i> Live AR Mirror</h3>
+                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem;">Seguimiento facial en tiempo real para previsualización.</p>
+                
+                <div class="webcam-container">
+                    <div class="loading-ar" id="loading-indicator">
+                        <div class="spinner"></div>
+                        <span id="loading-text">Cargando Modelos IA...</span>
+                    </div>
+                    <video id="webcam" autoplay muted playsinline></video>
+                    <canvas id="overlay"></canvas>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Estado de Cámara</label>
+                        <button class="btn-luxury active" id="btn-start-camera" onclick="startVideo()">Encender Espejo AR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: 3D Material & Lighting -->
+            <div class="ar-panel">
+                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-gem"></i> Materiales 3D & Iluminación</h3>
+                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem;">Explora cómo la luz refracta a través de cerámicas premium.</p>
+                
+                <!-- 3D Model Viewer using a placeholder teeth model (cube if none available, but we use a public one or a basic shape with material) -->
+                <!-- We'll use a generic 3D shape if a tooth model is not available, but styled beautifully -->
+                <div style="background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(10,10,10,1) 100%); border-radius: 12px; padding: 1rem; box-shadow: inset 0 0 20px #000;">
+                    <model-viewer id="tooth-model" 
+                        src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf" 
+                        environment-image="neutral" 
+                        exposure="1" 
+                        camera-controls 
+                        auto-rotate
+                        shadow-intensity="1">
+                        <!-- We use a placeholder, ideally this would be a 3D tooth/veneer model -->
+                    </model-viewer>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Material de Restauración</label>
+                        <div class="btn-group">
+                            <button class="btn-luxury active" onclick="changeMaterial('zirconio', this)">Zirconio Premium</button>
+                            <button class="btn-luxury" onclick="changeMaterial('emax', this)">Disilicato (E-Max)</button>
+                            <button class="btn-luxury" onclick="changeMaterial('porcelana', this)">Porcelana Feldespática</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Ambiente de Iluminación <span id="light-val" style="color: #fff; float: right;">Luz de Día</span></label>
+                        <input type="range" id="light-slider" min="0" max="2" value="1" step="1" oninput="changeLighting(this.value)">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #777; margin-top: 5px;">
+                            <span>Cena de Noche</span>
+                            <span>Luz de Día</span>
+                            <span>Luz de Oficina</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio for microinteractions -->
+    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+    <script>
+        const video = document.getElementById('webcam');
+        const overlay = document.getElementById('overlay');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const loadingText = document.getElementById('loading-text');
+        let modelsLoaded = false;
+
+        // Play subtle sound on buttons
+        const playSound = () => {
+            const audio = document.getElementById('click-sound');
+            audio.volume = 0.2;
+            audio.currentTime = 0;
+            audio.play().catch(e => {});
+        };
+
+        document.querySelectorAll('.btn-luxury').forEach(btn => {
+            btn.addEventListener('click', playSound);
+        });
+
+        // Load face-api.js models
+        Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri('https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights'),
+            faceapi.nets.faceLandmark68Net.loadFromUri('https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights')
+        ]).then(() => {
+            modelsLoaded = true;
+            loadingText.innerText = "Cámara Lista";
+            loadingIndicator.style.display = 'none';
+        }).catch(err => {
+            console.error("Error loading face-api models:", err);
+            loadingText.innerText = "Error cargando IA. Habilita cámara.";
+        });
+
+        function startVideo() {
+            if (!modelsLoaded) {
+                alert("Por favor espera a que los modelos de IA se carguen.");
+                return;
+            }
+            loadingIndicator.style.display = 'flex';
+            loadingText.innerText = "Iniciando Cámara...";
+            
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    loadingIndicator.style.display = 'none';
+                })
+                .catch(err => {
+                    console.error("Error accessing webcam: ", err);
+                    loadingText.innerText = "Acceso a cámara denegado.";
+                });
+        }
+
+        video.addEventListener('play', () => {
+            const canvas = faceapi.createCanvasFromMedia(video);
+            overlay.replaceWith(canvas);
+            canvas.id = 'overlay';
+            const displaySize = { width: video.clientWidth, height: video.clientHeight };
+            faceapi.matchDimensions(canvas, displaySize);
+
+            setInterval(async () => {
+                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
+                const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw luxury AR tracking overlay
+                faceapi.draw.drawFaceLandmarks(canvas, resizedDetections, {
+                    drawLines: true,
+                    drawPoints: true,
+                    lineWidth: 1,
+                    pointColor: '#d4af37',
+                    lineColor: 'rgba(212, 175, 55, 0.5)'
+                });
+
+                // Simulate placing a "Veneer" overlay if mouth is detected
+                if (resizedDetections.length > 0) {
+                    const landmarks = resizedDetections[0].landmarks;
+                    const mouth = landmarks.getMouth();
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // Glowing effect for teeth
+                    ctx.shadowColor = '#fff';
+                    ctx.shadowBlur = 10;
+                    ctx.beginPath();
+                    ctx.moveTo(mouth[0].x, mouth[0].y);
+                    for (let i = 1; i < mouth.length; i++) {
+                        ctx.lineTo(mouth[i].x, mouth[i].y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+            }, 100);
+        });
+
+        // 3D Model Interaction
+        const modelViewer = document.getElementById('tooth-model');
+        const lightVal = document.getElementById('light-val');
+
+        function changeMaterial(type, btnElement) {
+            document.querySelectorAll('.ar-panel .btn-luxury').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Simulate material change via model-viewer attributes or changing the model src
+            // We use different environment images or exposure to simulate translucency/material
+            if (type === 'zirconio') {
+                modelViewer.exposure = "1.5";
+                modelViewer.shadowIntensity = "0.5";
+            } else if (type === 'emax') {
+                modelViewer.exposure = "0.8";
+                modelViewer.shadowIntensity = "1";
+                // E-Max is more translucent
+            } else {
+                modelViewer.exposure = "1";
+                modelViewer.shadowIntensity = "0.8";
+            }
+        }
+
+        function changeLighting(val) {
+            if (val == 0) {
+                modelViewer.environmentImage = "legacy";
+                modelViewer.exposure = "0.4";
+                lightVal.innerText = "Cena de Noche";
+            } else if (val == 1) {
+                modelViewer.environmentImage = "neutral";
+                modelViewer.exposure = "1";
+                lightVal.innerText = "Luz de Día";
+            } else {
+                modelViewer.environmentImage = "https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr";
+                modelViewer.exposure = "1.2";
+                lightVal.innerText = "Luz de Oficina";
+            }
+        }
+    </script>
+</body>
+</html>

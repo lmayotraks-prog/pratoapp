@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Martin Prato | Análisis Clínico IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    
+    <style>
+        body {
+            background-color: #080808;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ia-container {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ia-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        .ia-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #d4af37;
+        }
+
+        .ia-workspace {
+            display: flex;
+            gap: 2rem;
+            width: 90%;
+            max-width: 1200px;
+            margin-bottom: 3rem;
+        }
+
+        .upload-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-panel:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: #d4af37;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .report-panel {
+            flex: 1;
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none; /* Hidden until analysis */
+        }
+
+        .report-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+        }
+
+        .metric-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            background: #d4af37;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .shade-box {
+            background: #fdfdfd;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        #image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            display: none;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #d4af37;
+            box-shadow: 0 0 10px #d4af37, 0 0 20px #d4af37;
+            display: none;
+            z-index: 10;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar glass-panel">
+        <div class="nav-content">
+            <a href="index.html" class="logo">
+                <span class="neon-text" style="font-family: 'Cinzel'; font-size: 1.5rem; font-weight: 800; color: #fff;">DR. MARTÍN PRATO</span>
+            </a>
+            <div class="nav-links">
+                <a href="simulador-ar.html" class="nav-link">Simulador AR</a>
+                <a href="dashboard-vip.html" class="nav-link btn-primary glow-btn">Portal Privado</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="ia-container">
+        <div class="ia-header">
+            <h1>Análisis Clínico Impulsado por IA</h1>
+            <p style="color: #aaa;">El "Concierge" Digital evaluará tu simetría facial, proporción áurea y recomendará el tono perfecto para ti, garantizando un resultado armónico y natural.</p>
+        </div>
+
+        <div class="ia-workspace">
+            <div class="upload-panel" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <h3 style="font-family: 'Cinzel';">Sube tu Fotografía Frontal</h3>
+                <p style="color: #777; font-size: 0.9rem;">Formato JPG o PNG. Resolución mínima recomendada: 1080p</p>
+                <input type="file" id="file-input" style="display: none;" accept="image/*" onchange="handleImageUpload(event)">
+                
+                <div style="position: relative; margin-top: 20px;">
+                    <img id="image-preview" src="" alt="Preview">
+                    <div class="scanner-line" id="scanner"></div>
+                </div>
+            </div>
+
+            <div class="report-panel" id="report-panel">
+                <div class="report-title">
+                    <i class="fas fa-clipboard-check"></i> Reporte de Armonía Facial
+                </div>
+                
+                <p style="color: #aaa; font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6;">
+                    Basado en algoritmos de proporción áurea (Phi = 1.618), hemos analizado tu arquitectura facial para diseñar una sonrisa perfectamente integrada a tus rasgos.
+                </p>
+
+                <div class="metric-group">
+                    <div class="metric-header">
+                        <span>Simetría Facial</span>
+                        <span id="val-sym">0%</span>
+                    </div>
+                    <div class="metric-bar-bg">
+                        <div class="metric-bar-fill" id="bar-sym"></div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-header">
+                        <span>Línea de Encía Ideal</span>
+                        <span id="val-gum">0%</span>
+                    </div>
+                    <div class="metric-bar-bg">
+                        <div class="metric-bar-fill" id="bar-gum"></div>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <div class="metric-header">
+                        <span>Alineación a Proporción Áurea</span>
+                        <span id="val-gold">0%</span>
+                    </div>
+                    <div class="metric-bar-bg">
+                        <div class="metric-bar-fill" id="bar-gold"></div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <h4 style="font-family: 'Cinzel'; color: #d4af37; margin-bottom: 1rem;">Shade Matching (Tono Recomendado)</h4>
+                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1rem;">Contrastando con tu tono de piel y el blanco esclerótico (ojos), sugerimos:</p>
+                    <div class="shade-box">BL1 - High Translucency</div>
+                    <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">Evitará el efecto de "diente falso", brindando luminosidad natural.</p>
+                </div>
+
+                <button class="btn btn-primary glow-btn" style="width: 100%; margin-top: 2rem; font-family: 'Cinzel';"><i class="fas fa-file-pdf"></i> Descargar Reporte Completo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('image-preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    
+                    document.querySelector('.upload-icon').style.display = 'none';
+                    document.querySelector('.upload-panel h3').style.display = 'none';
+                    document.querySelector('.upload-panel p').style.display = 'none';
+
+                    // Start scanning animation
+                    const scanner = document.getElementById('scanner');
+                    scanner.style.display = 'block';
+                    scanner.style.animation = 'scan 2s linear infinite';
+
+                    // Simulate AI Processing time
+                    setTimeout(() => {
+                        scanner.style.display = 'none';
+                        showReport();
+                    }, 3000);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function showReport() {
+            const panel = document.getElementById('report-panel');
+            panel.style.display = 'block';
+
+            // Animate bars
+            setTimeout(() => {
+                document.getElementById('bar-sym').style.width = '94%';
+                document.getElementById('val-sym').innerText = '94%';
+
+                document.getElementById('bar-gum').style.width = '88%';
+                document.getElementById('val-gum').innerText = '88%';
+
+                document.getElementById('bar-gold').style.width = '96%';
+                document.getElementById('val-gold').innerText = '96.18% (Phi)';
+            }, 100);
+        }
+    </script>
+</body>
+</html>

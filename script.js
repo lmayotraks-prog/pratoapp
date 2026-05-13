@@ -506,48 +506,15 @@ function initVideoModal() {
 }
 
 // =============================================
-// Theme Selector Logic (Multi-Palette)
+// Default Theme Logic
 // =============================================
-function initThemeSelector() {
-    const swatches = document.querySelectorAll('.theme-swatch');
-    
-    // Load saved theme
-    const savedTheme = localStorage.getItem('selected-theme');
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    }
-
-    swatches.forEach(swatch => {
-        swatch.addEventListener('click', () => {
-            const themeName = swatch.getAttribute('data-theme-name');
-            applyTheme(themeName);
-        });
-    });
+function initTheme() {
+    // Apply gold theme by default as requested
+    document.body.setAttribute('data-theme', 'gold');
+    localStorage.setItem('selected-theme', 'gold');
 }
 
-function applyTheme(themeName) {
-    const swatches = document.querySelectorAll('.theme-swatch');
-    
-    // Clear all theme attributes and classes first
-    document.body.removeAttribute('data-theme');
-    // If it's the diamond theme, we just use defaults (light mode style)
-    if (themeName !== 'diamond') {
-        document.body.setAttribute('data-theme', themeName);
-    }
-    
-    // Update Active Swatch
-    swatches.forEach(s => {
-        if (s.getAttribute('data-theme-name') === themeName) {
-            s.classList.add('active');
-        } else {
-            s.classList.remove('active');
-        }
-    });
-
-    localStorage.setItem('selected-theme', themeName);
-}
-
-document.addEventListener('DOMContentLoaded', initThemeSelector);
+document.addEventListener('DOMContentLoaded', initTheme);
 
 
 // Initial Run
