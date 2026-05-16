@@ -51,11 +51,11 @@
 
         .ar-workspace {
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 4rem;
             width: 90%;
             max-width: 1400px;
             margin-bottom: 3rem;
-            flex-wrap: wrap;
         }
 
         .ar-panel {
@@ -203,9 +203,88 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Exocad Sidebar Styles */
+        .exo-layout {
+            display: flex;
+            width: 100%;
+            height: 450px;
+            margin-top: 1rem;
+        }
+        .exo-sidebar {
+            width: 250px;
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 1rem;
+            overflow-y: auto;
+            border-radius: 12px;
+            margin-right: 1rem;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+        }
+        .exo-fov {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .exo-group {
+            margin-bottom: 0.5rem;
+        }
+        .exo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(30, 30, 30, 0.8);
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .exo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.8rem;
+            margin-top: 5px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .exo-icons {
+            display: flex;
+            gap: 8px;
+        }
+        .exo-icons i { cursor: pointer; transition: color 0.2s; color: #fff; }
+        .exo-icons i:hover { color: #d4af37 !important; }
+        .bg-jaw { background: #d48a56; }
+        .bg-anatomic { background: #1f5ca6; }
+        .bg-reduced { background: #829a73; }
+        .bg-abutments { background: #4a4a4a; }
+        .bg-implant { background: #5c3a7d; }
+        .bg-screw { background: #a6b825; color: #000 !important; }
+        .bg-gingiva { background: #c27a8e; }
+        .bg-bottom { background: #d48a56; }
+        .bg-other { background: #5c3a7d; }
+        
+        .exo-viewer {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(10,10,10,1) 100%);
+            box-shadow: inset 0 0 30px #000;
+            position: relative;
+        }
     </style>
 </head>
-<body>
+<body class="dark-mode" data-theme="gold">
 
     <!-- Navigation -->
     <nav class="navbar glass-panel">
@@ -251,22 +330,44 @@
             </div>
 
             <!-- Right Panel: 3D Material & Lighting -->
-            <div class="ar-panel">
-                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-gem"></i> Materiales 3D & Iluminación</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem;">Explora cómo la luz refracta a través de cerámicas premium.</p>
+            <div class="ar-panel" style="flex: 2; min-width: 600px;">
+                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-gem"></i> Motor 3D Profesional (DentalCAD)</h3>
+                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 0.5rem;">Motor de visualización de alta fidelidad. Selecciona componentes y capas.</p>
                 
-                <!-- 3D Model Viewer using a placeholder teeth model (cube if none available, but we use a public one or a basic shape with material) -->
-                <!-- We'll use a generic 3D shape if a tooth model is not available, but styled beautifully -->
-                <div style="background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(10,10,10,1) 100%); border-radius: 12px; padding: 1rem; box-shadow: inset 0 0 20px #000;">
-                    <model-viewer id="tooth-model" 
-                        src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf" 
-                        environment-image="neutral" 
-                        exposure="1" 
-                        camera-controls 
-                        auto-rotate
-                        shadow-intensity="1">
-                        <!-- We use a placeholder, ideally this would be a 3D tooth/veneer model -->
-                    </model-viewer>
+                <div class="exo-layout">
+                    <!-- Exocad-style Sidebar -->
+                    <div class="exo-sidebar">
+                        <div class="exo-fov">
+                            <span>FOV</span>
+                            <input type="range" min="1" max="90" value="45" style="flex:1;">
+                            <span>1°</span>
+                        </div>
+                        <div class="exo-group">
+                            <div class="exo-header"><i class="fas fa-chevron-up"></i> Show / Hide</div>
+                            <div class="exo-item bg-jaw">Jaw scans <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-anatomic"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Anatomic shapes <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-reduced"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Reduced parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-abutments"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Abutments <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-implant"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Implant parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-screw"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Screw channels <div class="exo-icons"><i class="fas fa-eye" style="color:#000;"></i><i class="fas fa-cube" style="color:#000;"></i></div></div>
+                            <div class="exo-item bg-gingiva">Gingiva design parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-bottom"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Bottom of designs <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item bg-other"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> All other parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
+                            <div class="exo-item" style="justify-content: center; background: transparent; border: 1px solid #5c3a7d;">Show All</div>
+                        </div>
+                    </div>
+
+                    <!-- 3D Model Viewer -->
+                    <div class="exo-viewer">
+                        <model-viewer id="tooth-model" 
+                            src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf" 
+                            environment-image="neutral" 
+                            exposure="1" 
+                            camera-controls 
+                            auto-rotate
+                            shadow-intensity="1">
+                        </model-viewer>
+                    </div>
                 </div>
 
                 <div class="controls">
@@ -315,10 +416,10 @@
             btn.addEventListener('click', playSound);
         });
 
-        // Load face-api.js models
+        // Load face-api.js models from a reliable CDN
         Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri('https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights'),
-            faceapi.nets.faceLandmark68Net.loadFromUri('https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights')
+            faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/'),
+            faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/')
         ]).then(() => {
             modelsLoaded = true;
             loadingText.innerText = "Cámara Lista";

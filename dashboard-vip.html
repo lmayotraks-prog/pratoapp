@@ -216,7 +216,7 @@
 
     </style>
 </head>
-<body>
+<body class="dark-mode" data-theme="gold">
 
     <nav class="navbar glass-panel">
         <div class="nav-content">
@@ -238,63 +238,103 @@
                 <div class="user-id">Paciente VIP #9024</div>
             </div>
             
-            <a href="#" class="nav-item active"><i class="fas fa-home"></i> Mi Panel</a>
-            <a href="simulador-ar.html" class="nav-item"><i class="fas fa-cube"></i> Mis Modelos 3D</a>
-            <a href="analisis-ia.html" class="nav-item"><i class="fas fa-file-medical-alt"></i> Reportes Clínicos</a>
-            <a href="#" class="nav-item"><i class="fas fa-file-signature"></i> Consentimientos</a>
-            <a href="#" class="nav-item"><i class="fas fa-calendar-check"></i> Próximas Citas</a>
+            <a href="#" class="nav-item active" id="nav-resumen"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="#" class="nav-item" id="nav-citas"><i class="fas fa-calendar-check"></i> Próximas Citas</a>
+            <a href="#" class="nav-item" id="nav-consentimientos"><i class="fas fa-file-signature"></i> Consentimientos</a>
+            <a href="simulador-ar.html" class="nav-item"><i class="fas fa-magic"></i> Simulador 3D</a>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <h1 class="section-header">Resumen de Tratamiento</h1>
+            <div id="section-resumen">
+                <h1 class="section-header">Resumen de Tratamiento</h1>
 
-            <div class="grid-layout">
-                <!-- Co-Browsing Card -->
-                <div class="card">
-                    <div class="card-glow"></div>
-                    <h2 class="card-title"><i class="fas fa-video"></i> Sala de Presentación</h2>
-                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1.5rem;">Conéctate en vivo con el Dr. Prato para revisar tu diseño 3D interactivo.</p>
-                    
-                    <div class="co-browsing">
-                        <div class="pulse-ring">
-                            <i class="fas fa-phone-alt" style="color: #d4af37; font-size: 2rem;"></i>
+                <div class="grid-layout">
+                    <!-- Co-Browsing Card -->
+                    <div class="card">
+                        <div class="card-glow"></div>
+                        <h2 class="card-title"><i class="fas fa-video"></i> Sala de Presentación</h2>
+                        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1.5rem;">Conéctate en vivo con el Dr. Prato para revisar tu diseño 3D interactivo.</p>
+                        
+                        <div class="co-browsing">
+                            <div class="pulse-ring">
+                                <i class="fas fa-phone-alt" style="color: #d4af37; font-size: 2rem;"></i>
+                            </div>
                         </div>
+                        
+                        <button class="btn btn-primary glow-btn" style="width: 100%;">Unirse a la Sesión (15:00)</button>
                     </div>
-                    
-                    <button class="btn btn-primary glow-btn" style="width: 100%;">Unirse a la Sesión (15:00)</button>
+
+                    <!-- Investment Simulator Card -->
+                    <div class="card">
+                        <div class="card-glow"></div>
+                        <h2 class="card-title"><i class="fas fa-gem"></i> Plan de Inversión</h2>
+                        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1.5rem;">Simula tu plan de financiación premium para un Diseño de Sonrisa en Zirconio.</p>
+
+                        <div class="investment-total" id="inv-total">$ 6,500 USD</div>
+
+                        <div class="slider-container">
+                            <div class="sim-label">
+                                <span>Cuota Inicial</span>
+                                <span id="label-down">$ 2,000 USD</span>
+                            </div>
+                            <input type="range" id="down-payment" min="1000" max="5000" step="500" value="2000" oninput="updateInvestment()">
+                        </div>
+
+                        <div class="slider-container" style="margin-bottom: 2rem;">
+                            <div class="sim-label">
+                                <span>Meses de Financiación</span>
+                                <span id="label-months">12 Meses</span>
+                            </div>
+                            <input type="range" id="months" min="6" max="24" step="6" value="12" oninput="updateInvestment()">
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between;">
+                            <span style="color: #aaa;">Inversión Mensual:</span>
+                            <span id="monthly-payment" style="color: #d4af37; font-weight: bold; font-size: 1.2rem;">$ 375 USD</span>
+                        </div>
+
+                        <button class="btn-sign"><i class="fas fa-pen-nib"></i> Firmar Acuerdo Digital</button>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Investment Simulator Card -->
+            <!-- Citas Section -->
+            <div id="section-citas" style="display:none;">
+                <h1 class="section-header">Próximas Citas</h1>
                 <div class="card">
-                    <div class="card-glow"></div>
-                    <h2 class="card-title"><i class="fas fa-gem"></i> Plan de Inversión</h2>
-                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 1.5rem;">Simula tu plan de financiación premium para un Diseño de Sonrisa en Zirconio.</p>
-
-                    <div class="investment-total" id="inv-total">$ 6,500 USD</div>
-
-                    <div class="slider-container">
-                        <div class="sim-label">
-                            <span>Cuota Inicial</span>
-                            <span id="label-down">$ 2,000 USD</span>
-                        </div>
-                        <input type="range" id="down-payment" min="1000" max="5000" step="500" value="2000" oninput="updateInvestment()">
+                    <h2 class="card-title" style="color: var(--primary-accent);"><i class="fas fa-calendar-alt"></i> Cita Programada</h2>
+                    <div style="padding: 15px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; margin-top: 15px; background: rgba(0,0,0,0.3);">
+                        <p style="font-size: 1.1rem; margin-bottom: 8px; color: #fff;"><strong>Fecha:</strong> Viernes, 22 de Mayo, 2026</p>
+                        <p style="font-size: 1.1rem; margin-bottom: 8px; color: #fff;"><strong>Hora:</strong> 10:30 AM</p>
+                        <p style="font-size: 1.1rem; margin-bottom: 15px; color: #fff;"><strong>Procedimiento:</strong> Ajuste de Diseño de Sonrisa 3D y Revisión</p>
+                        <button class="btn btn-primary" style="margin-right: 10px;">Confirmar Asistencia</button>
+                        <button class="btn btn-secondary" style="border: 1px solid #aaa; background: transparent; color: #aaa; border-radius: 30px; padding: 12px 25px;">Reprogramar</button>
                     </div>
-
-                    <div class="slider-container" style="margin-bottom: 2rem;">
-                        <div class="sim-label">
-                            <span>Meses de Financiación</span>
-                            <span id="label-months">12 Meses</span>
-                        </div>
-                        <input type="range" id="months" min="6" max="24" step="6" value="12" oninput="updateInvestment()">
+                    
+                    <h2 class="card-title" style="color: #aaa; margin-top: 2rem;"><i class="fas fa-history"></i> Historial de Visitas</h2>
+                    <div style="padding: 15px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; margin-top: 15px; background: rgba(0,0,0,0.1);">
+                        <p style="font-size: 1rem; color: #ccc;"><strong>2 de Mayo, 2026:</strong> Escaneo facial 3D y evaluación preliminar.</p>
                     </div>
+                </div>
+            </div>
 
-                    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 2rem; display: flex; justify-content: space-between;">
-                        <span style="color: #aaa;">Inversión Mensual:</span>
-                        <span id="monthly-payment" style="color: #d4af37; font-weight: bold; font-size: 1.2rem;">$ 375 USD</span>
+            <!-- Consentimientos Section -->
+            <div id="section-consentimientos" style="display:none;">
+                <h1 class="section-header">Tus Consentimientos</h1>
+                <div class="card">
+                    <h2 class="card-title" style="color: var(--primary-accent);"><i class="fas fa-file-contract"></i> Documentos Pendientes</h2>
+                    <div style="padding: 15px; border-left: 4px solid var(--primary-accent); margin-bottom: 15px; background: rgba(0,0,0,0.3); margin-top: 15px;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 5px; color: #fff;">Consentimiento Informado para Carillas E-Max Premium</h4>
+                        <p style="color: #aaa; margin-bottom: 15px;">Por favor lee y firma este documento digitalmente antes de tu próxima cita clínica.</p>
+                        <button class="btn-sign" style="width: auto;">Leer y Firmar Digitalmente</button>
                     </div>
-
-                    <button class="btn-sign"><i class="fas fa-pen-nib"></i> Firmar Acuerdo Digital</button>
+                    
+                    <h2 class="card-title" style="color: #00ffaa; margin-top: 2.5rem;"><i class="fas fa-check-circle"></i> Documentos Firmados</h2>
+                    <div style="padding: 15px; border-left: 4px solid #00ffaa; background: rgba(0,0,0,0.1); margin-top: 15px;">
+                        <h4 style="font-size: 1.1rem; margin-bottom: 5px; color: #fff;">Acuerdo de Privacidad VIP (HIPAA)</h4>
+                        <p style="color: #aaa;">Firmado electrónicamente el 2 de Mayo, 2026</p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -315,6 +355,30 @@
 
             document.getElementById('monthly-payment').innerText = `$ ${Math.round(monthly).toLocaleString()} USD`;
         }
+
+        // Tab Navigation Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const navResumen = document.getElementById('nav-resumen');
+            const navCitas = document.getElementById('nav-citas');
+            const navConsent = document.getElementById('nav-consentimientos');
+            
+            const secResumen = document.getElementById('section-resumen');
+            const secCitas = document.getElementById('section-citas');
+            const secConsent = document.getElementById('section-consentimientos');
+            
+            function hideAll() {
+                secResumen.style.display = 'none';
+                secCitas.style.display = 'none';
+                secConsent.style.display = 'none';
+                navResumen.classList.remove('active');
+                navCitas.classList.remove('active');
+                navConsent.classList.remove('active');
+            }
+            
+            if (navResumen) navResumen.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secResumen.style.display = 'block'; navResumen.classList.add('active'); });
+            if (navCitas) navCitas.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secCitas.style.display = 'block'; navCitas.classList.add('active'); });
+            if (navConsent) navConsent.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secConsent.style.display = 'block'; navConsent.classList.add('active'); });
+        });
     </script>
 </body>
 </html>

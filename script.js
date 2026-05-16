@@ -349,7 +349,7 @@ const themeToggleBtn = document.getElementById('theme-toggle-btn');
 const themeIcon = document.getElementById('theme-icon');
 
 // Set Initial Theme
-const currentTheme = localStorage.getItem('theme') || 'light';
+const currentTheme = localStorage.getItem('theme') || 'dark';
 if (currentTheme === 'dark') {
     document.body.classList.add('dark-mode');
     updateThemeIcon('dark');

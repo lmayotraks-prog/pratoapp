@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="index.css">
 <link rel="icon" href="/123.png" type="image/png"></head>
 
-<body>
+<body class="dark-mode" data-theme="gold">
 
 
 
@@ -33,7 +33,7 @@
         <div class="nav-content">
             <a href="#" class="logo">
                 <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
-                    alt="Doctor Martin Prato Logo" id="main-logo" class="nav-logo-img">
+                    alt="Doctor Martin Prato Logo" id="main-logo" class="nav-logo-img" style="transform: translateY(5px);">
                 <span class="neon-text"></span>
             </a>
             <div class="nav-links">
@@ -90,9 +90,9 @@
 
     <!-- Hero Section -->
     <header class="hero" id="home">
-        <!-- Abstract overlay background image -->
+        <!-- Luxury 3D background image -->
         <div class="hero-overlay"
-            style="background: url('https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg') center/cover;">
+            style="background: url('luxury_dental_bg.png') center/cover; animation: pulse-bg 10s infinite alternate; opacity: 0.9;">
         </div>
 
         <div class="hero-content">
@@ -110,9 +110,9 @@
         </div>
 
         <!-- Abstract floating elements -->
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-1" style="background: var(--primary-accent);"></div>
+        <div class="floating-shape shape-2" style="background: var(--primary-glow);"></div>
+        <div class="floating-shape shape-3" style="background: var(--secondary-accent);"></div>
     </header>
 
     <!-- Biography Section -->
@@ -185,11 +185,14 @@
             <p class="section-subtitle">Conoce las increíbles experiencias de nuestros cientos de pacientes.</p>
 
             <div class="videos-grid">
-                <div class="video-container" data-video-id="-Y_GaseRBa8">
-                    <div class="video-thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/-Y_GaseRBa8/hqdefault.jpg" alt="Testimonio 1" loading="lazy">
-                        <div class="play-overlay">▶</div>
-                    </div>
+                <div class="video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/1_tNnO2kAwDN1C5-ZTf-MkPZNl9DOH8O0/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/15SD81gbTSyDLCLUZcEYMMHFZaWzpRfp_/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/1Ml4rXxi_Ca1i1PCBKb_od8l28hjVmD_V/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 30px;">
@@ -199,38 +202,45 @@
     </section>
 
 
+    <!-- Galeria Premium Section -->
     <section class="section gallery-section" id="gallery">
         <div class="container">
-            <h2 class="section-title">Antes y <span class="neon-text">Después</span></h2>
-            <p class="section-subtitle">Resultados reales de nuestros pacientes.</p>
+            <h2 class="section-title">Galería <span class="neon-text">Premium</span></h2>
+            <p class="section-subtitle">Explora nuestra colección de resultados, instalaciones y experiencias VIP.</p>
 
-            <div class="ba-slider-grid">
-                <div class="gallery-item" style="border-radius:20px; overflow:hidden; border:1px solid var(--border-glass);">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues1CA7B944-82C0-4F06-A8D6-B1789C8156BF.jpg" style="width:100%;" loading="lazy">
-                </div>
-                <div class="gallery-item" style="border-radius:20px; overflow:hidden; border:1px solid var(--border-glass);">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Antes-y-Despues7DB8667E-D792-431C-A498-4A7221E90F87.jpg" style="width:100%;" loading="lazy">
-                </div>
+            <div class="luxury-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                <!-- Photos -->
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1sPfAUqsAuKOAJazeleKdIk3P2m-Wc8I6" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1ytVWImniE3hPnzKATjx2DsLTxo8VQOgv" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=18kR2B5xpPjoJa1EyZXUshBBNfLyB_tHC" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1K1quOmMqyHwGlQKYTVwm4r3t1-6qzXzY" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1NmJ4zHulbTX2eKxmSyYQxlPY4cFTLzGM" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1rMtY3Tu7X8QJiDlucH9S5x5Dwahgw1Ny" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1qfaLyKJzK3Wmzt_WTbVuJSosEfX4Vqlq" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1MM0-jb7fC_ohvRHdTorfhzTijqh9cLnf" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1bswP34oDeWxJf3Bqi-wC2wDaKbJI2SSZ" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1KUGkkGhTqcwYB-eyJdjvmFmrPoSjE9pH" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1Ma8lDgxGAQ0AvWQpk8J8cpC_pd25jrke" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1O3EKFSSGSpgXqpIRnLWLHxeeq9eKZvR5" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1DmvnjSXwC-doV89wa1qHBfQNPDVwG32j" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1GlnTt6wRNiHEyRCrNiCkofPUioWqzqri" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1yRg6dD5wjiVWmf3vN_DJ8eHnknUx2EVT" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1__MsAEqIz8BnmFDS9xIOtrVVY0upwuRF" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="galeria/antes-y-despues.html" class="btn-secondary">Ver todos los resultados</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Nuestros Pacientes -->
-    <section class="section pacientes-section" id="pacientes">
-        <div class="container">
-            <h2 class="section-title">Nuestros <span class="neon-text">Pacientes</span></h2>
-            <p class="section-subtitle">Figuras públicas que han confiado su sonrisa al Dr. Martín Prato.</p>
-
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF2D8089B8-A29F-4AE2-9FC4-ED808FAFA78A.jpeg" class="paciente-img" alt="Paciente Vip 1" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A1494-2.jpg" class="paciente-img" alt="Paciente Vip 2" loading="lazy"></div>
-                <div class="gallery-item"><img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Fotos-Famosos-Disen%CC%83o-de-sonrisa-Colombia-Bogota-Mexico-DF649A8709.jpg" class="paciente-img" alt="Paciente Vip 3" loading="lazy"></div>
+            <h3 class="section-title" style="margin-top: 3rem; font-size: 1.8rem;">Detrás de <span class="neon-text">Cámaras</span></h3>
+            <div class="videos-grid" style="margin-top: 1.5rem;">
+                <!-- Videos -->
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1ELaYwQ5IJo4rlnsBfl3NCwHpXJK4HZaw/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/15VkBwuRH2SWp7dFTgQzVq9G7GzFv1cPC/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1RNhU-y82MxlS7Ruqcm7kASn-_mxIjqTA/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1mhRQV7wA7SvNmSTdfK4xscEwq4ICJ2B7/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1_kfY6smdu6HqgnX1tERYFLVbUDyBg1Aj/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1vzPkTr3BM1IWeLnAlk5bBv960d4exIRZ/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="galeria/nuestros-pacientes.html" class="btn-secondary">Ver todos nuestros pacientes</a>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="galeria/fotos.html" class="btn-secondary">Explorar Galería Completa</a>
             </div>
         </div>
     </section>

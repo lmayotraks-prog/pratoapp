@@ -376,7 +376,7 @@ body.dark-mode .nav-link {
 }
 
 body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
-    color: var(--neon-cyan) !important;
+    color: var(--primary-accent) !important;
 }
 
 /* Mobile Menu hidden by default */
@@ -531,6 +531,17 @@ body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
 
     100% {
         transform: translateY(-50px) scale(1.1);
+    }
+}
+
+@keyframes pulse-bg {
+    0% {
+        transform: scale(1);
+        filter: brightness(1) contrast(1.1);
+    }
+    100% {
+        transform: scale(1.05);
+        filter: brightness(1.2) contrast(1.2);
     }
 }
 
