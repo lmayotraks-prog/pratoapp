@@ -2,25 +2,37 @@
 const canvas = document.getElementById('bg-canvas');
 
 let particles = [];
-const particleCount = 100;
+let particleCount = window.innerWidth < 768 ? 40 : 80;
 
 // Only run particle code if canvas exists on this page
 if (canvas) {
 const ctx = canvas.getContext('2d');
 
+let cachedAccent = '#00d2ff';
+let cachedText = '#111111';
+
+function updateThemeColors() {
+    cachedAccent = getComputedStyle(document.body).getPropertyValue('--primary-accent').trim() || '#00d2ff';
+    cachedText = getComputedStyle(document.body).getPropertyValue('--text-main').trim() || '#111111';
+}
+updateThemeColors();
+const themeObserver = new MutationObserver(updateThemeColors);
+themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    particleCount = window.innerWidth < 768 ? 40 : 80;
+    if (particles.length === 0) initParticles();
 }
 
 class Particle {
     constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.2; // Slower, more elegant movement
+        this.x = Math.random() * (canvas.width || window.innerWidth);
+        this.y = Math.random() * (canvas.height || window.innerHeight);
+        this.vx = (Math.random() - 0.5) * 0.2; 
         this.vy = (Math.random() - 0.5) * 0.2;
-        this.size = Math.random() * 3 + 1; // Slightly larger, softer particles
-        // Base color flag, actual color resolved in draw()
+        this.size = Math.random() * 3 + 1; 
         this.isCyan = Math.random() > 0.3;
     }
 
@@ -33,17 +45,11 @@ class Particle {
     }
 
     draw() {
-        const theme = document.body.getAttribute('data-theme') || (document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         
-        // Colors adapt to theme variables via computed styles from body (where themes are applied)
-        const accent = getComputedStyle(document.body).getPropertyValue('--primary-accent').trim() || '#00d2ff';
-        const text = getComputedStyle(document.body).getPropertyValue('--text-main').trim() || '#111111';
-        
-        ctx.fillStyle = this.isCyan ? `${accent}88` : `${text}44`;
-        ctx.shadowColor = accent;
+        ctx.fillStyle = this.isCyan ? `${cachedAccent}88` : `${cachedText}44`;
+        ctx.shadowColor = cachedAccent;
         ctx.shadowBlur = 10;
         ctx.fill();
         ctx.shadowBlur = 0; 
@@ -65,16 +71,14 @@ function animateParticles() {
         p.draw();
     });
 
-    // Draw lines between close particles
     for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 120) {
-                const accent = getComputedStyle(document.body).getPropertyValue('--primary-accent').trim() || '#00d2ff';
                 ctx.beginPath();
-                ctx.strokeStyle = `${accent}${Math.floor((0.15 - dist / 800) * 255).toString(16).padStart(2, '0')}`;
+                ctx.strokeStyle = `${cachedAccent}${Math.floor((0.15 - dist / 800) * 255).toString(16).padStart(2, '0')}`;
                 ctx.lineWidth = 0.6;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
