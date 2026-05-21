@@ -2,7 +2,7 @@
 const canvas = document.getElementById('bg-canvas');
 
 let particles = [];
-let particleCount = window.innerWidth < 768 ? 40 : 80;
+let particleCount = window.innerWidth < 768 ? 15 : 40;
 
 // Only run particle code if canvas exists on this page
 if (canvas) {
@@ -22,7 +22,7 @@ themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    particleCount = window.innerWidth < 768 ? 40 : 80;
+    particleCount = window.innerWidth < 768 ? 15 : 40;
     if (particles.length === 0) initParticles();
 }
 
@@ -71,18 +71,20 @@ function animateParticles() {
         p.draw();
     });
 
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 120) {
-                ctx.beginPath();
-                ctx.strokeStyle = `${cachedAccent}${Math.floor((0.15 - dist / 800) * 255).toString(16).padStart(2, '0')}`;
-                ctx.lineWidth = 0.6;
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
+    if (window.innerWidth >= 768) {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `${cachedAccent}${Math.floor((0.15 - dist / 800) * 255).toString(16).padStart(2, '0')}`;
+                    ctx.lineWidth = 0.6;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
             }
         }
     }
