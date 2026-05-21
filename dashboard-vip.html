@@ -357,28 +357,28 @@
         }
 
         // Tab Navigation Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const navResumen = document.getElementById('nav-resumen');
-            const navCitas = document.getElementById('nav-citas');
-            const navConsent = document.getElementById('nav-consentimientos');
-            
-            const secResumen = document.getElementById('section-resumen');
-            const secCitas = document.getElementById('section-citas');
-            const secConsent = document.getElementById('section-consentimientos');
-            
-            function hideAll() {
-                secResumen.style.display = 'none';
-                secCitas.style.display = 'none';
-                secConsent.style.display = 'none';
-                navResumen.classList.remove('active');
-                navCitas.classList.remove('active');
-                navConsent.classList.remove('active');
-            }
-            
-            if (navResumen) navResumen.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secResumen.style.display = 'block'; navResumen.classList.add('active'); });
-            if (navCitas) navCitas.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secCitas.style.display = 'block'; navCitas.classList.add('active'); });
-            if (navConsent) navConsent.addEventListener('click', (e) => { e.preventDefault(); hideAll(); secConsent.style.display = 'block'; navConsent.classList.add('active'); });
-        });
+        function showSection(sectionId) {
+            const sections = ['section-resumen', 'section-citas', 'section-consentimientos'];
+            const navs = ['nav-resumen', 'nav-citas', 'nav-consentimientos'];
+
+            sections.forEach(id => {
+                document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
+            });
+
+            navs.forEach(id => {
+                const navId = id.replace('nav-', 'section-');
+                if(navId === sectionId) {
+                    document.getElementById(id).classList.add('active');
+                } else {
+                    document.getElementById(id).classList.remove('active');
+                }
+            });
+        }
+        
+        // Bind events
+        document.getElementById('nav-resumen').onclick = function(e) { e.preventDefault(); showSection('section-resumen'); };
+        document.getElementById('nav-citas').onclick = function(e) { e.preventDefault(); showSection('section-citas'); };
+        document.getElementById('nav-consentimientos').onclick = function(e) { e.preventDefault(); showSection('section-consentimientos'); };
     </script>
 </body>
 </html>

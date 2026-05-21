@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Base CSS -->
     <link rel="stylesheet" href="index.css">
-<link rel="icon" href="/123.png" type="image/png"></head>
+    <link rel="icon" href="/123.png" type="image/png">
+</head>
 
 <body class="dark-mode" data-theme="gold">
 
@@ -33,7 +34,7 @@
         <div class="nav-content">
             <a href="#" class="logo">
                 <img src="https://www.doctormartinprato.com/wp-content/uploads/logo-martin-prato-hor-8.png"
-                    alt="Doctor Martin Prato Logo" id="main-logo" class="nav-logo-img" style="transform: translateY(5px);">
+                    alt="Doctor Martin Prato Logo" id="main-logo" class="nav-logo-img">
                 <span class="neon-text"></span>
             </a>
             <div class="nav-links">
@@ -72,12 +73,15 @@
                         <a href="dashboard-vip.html" class="dropdown-item">Portal Privado</a>
                     </div>
                 </div>
-                
+
                 <a href="#vip-consultation" class="nav-link btn-primary glow-btn">Consulta VIP</a>
 
                 <!-- Theme Toggle Button -->
                 <button class="theme-toggle" id="theme-toggle-btn" title="Alternar Modo Oscuro/Claro">
-                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon" id="theme-icon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
                 </button>
             </div>
             <div class="mobile-menu-btn">
@@ -119,9 +123,9 @@
     <section class="section bio-section" id="about">
         <div class="container">
             <div class="bio-wrapper glass-panel">
-                <div class="bio-image-container">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prieto-Mid.png"
-                        alt="Doctor Martin Prato" class="bio-img" id="bio-img-placeholder" loading="lazy">
+                <div class="bio-image-container" style="overflow: hidden;">
+                    <img src="dr_martin_bio.png"
+                        alt="Doctor Martin Prato" class="bio-img" id="bio-img-placeholder" loading="lazy" style="object-fit: contain; object-position: bottom center; transform: scale(1.35); transform-origin: bottom center;">
                     <div class="bio-image-overlay"></div>
                 </div>
                 <div class="bio-content">
@@ -184,19 +188,22 @@
             <h2 class="section-title">Nuestros <span class="gradient-text">Testimonios</span></h2>
             <p class="section-subtitle">Conoce las increíbles experiencias de nuestros cientos de pacientes.</p>
 
-            <div class="videos-grid">
-                <div class="video-container hover-glow">
-                    <iframe src="https://drive.google.com/file/d/1_tNnO2kAwDN1C5-ZTf-MkPZNl9DOH8O0/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+            <div class="videos-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="vertical-video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/1_tNnO2kAwDN1C5-ZTf-MkPZNl9DOH8O0/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="video-container hover-glow">
-                    <iframe src="https://drive.google.com/file/d/15SD81gbTSyDLCLUZcEYMMHFZaWzpRfp_/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                <div class="vertical-video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/15SD81gbTSyDLCLUZcEYMMHFZaWzpRfp_/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <div class="video-container hover-glow">
-                    <iframe src="https://drive.google.com/file/d/1Ml4rXxi_Ca1i1PCBKb_od8l28hjVmD_V/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                <div class="vertical-video-container hover-glow">
+                    <iframe src="https://drive.google.com/file/d/1Ml4rXxi_Ca1i1PCBKb_od8l28hjVmD_V/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="galeria/videos.html" class="btn-secondary">Ver todos los testimonios</a>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="galeria/videos.html" class="btn btn-primary glow-btn" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 50px; letter-spacing: 1px;">Ver todos los testimonios <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></a>
             </div>
         </div>
     </section>
@@ -208,37 +215,113 @@
             <h2 class="section-title">Galería <span class="neon-text">Premium</span></h2>
             <p class="section-subtitle">Explora nuestra colección de resultados, instalaciones y experiencias VIP.</p>
 
-            <div class="luxury-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
-                <!-- Photos -->
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1sPfAUqsAuKOAJazeleKdIk3P2m-Wc8I6" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1ytVWImniE3hPnzKATjx2DsLTxo8VQOgv" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=18kR2B5xpPjoJa1EyZXUshBBNfLyB_tHC" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1K1quOmMqyHwGlQKYTVwm4r3t1-6qzXzY" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1NmJ4zHulbTX2eKxmSyYQxlPY4cFTLzGM" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1rMtY3Tu7X8QJiDlucH9S5x5Dwahgw1Ny" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1qfaLyKJzK3Wmzt_WTbVuJSosEfX4Vqlq" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1MM0-jb7fC_ohvRHdTorfhzTijqh9cLnf" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1bswP34oDeWxJf3Bqi-wC2wDaKbJI2SSZ" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1KUGkkGhTqcwYB-eyJdjvmFmrPoSjE9pH" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1Ma8lDgxGAQ0AvWQpk8J8cpC_pd25jrke" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1O3EKFSSGSpgXqpIRnLWLHxeeq9eKZvR5" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1DmvnjSXwC-doV89wa1qHBfQNPDVwG32j" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1GlnTt6wRNiHEyRCrNiCkofPUioWqzqri" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1yRg6dD5wjiVWmf3vN_DJ8eHnknUx2EVT" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
-                <div class="gallery-item hover-glow"><img src="https://drive.google.com/uc?export=view&id=1__MsAEqIz8BnmFDS9xIOtrVVY0upwuRF" style="width:100%; height: 200px; object-fit: cover; border-radius: 12px;" loading="lazy"></div>
+            <div class="luxury-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                <!-- Photos with enhanced transitions -->
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/fotos/2_649A9733s%20copia.png"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/fotos/579425508_18380966017197739_5198270998846317216_n.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/fotos/DSC05210.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/fotos/DSC05216%20copia.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/fotos/photo%203.jpeg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/20180426050853_649A1990.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/649A8926.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/DD5F9BD6-E845-414B-8D67-A35BBF052A80.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/DSC02453%20copia.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/E14AD9C7-11D0-4012-A5A1-D8CA152434FF.JPEG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/E36D2024-A0DD-4FAB-B249-4094473AAE9F.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/EE5A0339.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/IMG_0605.JPG"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/IMG_20180123_073057_230.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/IMG_20181031_190124.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
+                <div class="gallery-item hover-glow"><img
+                        src="material%20audiovisual%20martin%20prato/SOLO%20DIENTES/SOLO%20DIENTES/antes%20y%20despues%201.jpg"
+                        style="width:100%; height: 250px; object-fit: cover; border-radius: 12px; transition: transform 0.5s ease;"
+                        loading="lazy" onmouseover="this.style.transform='scale(1.05)'"
+                        onmouseout="this.style.transform='scale(1)'"></div>
             </div>
 
-            <h3 class="section-title" style="margin-top: 3rem; font-size: 1.8rem;">Detrás de <span class="neon-text">Cámaras</span></h3>
-            <div class="videos-grid" style="margin-top: 1.5rem;">
+            <h3 class="section-title" style="margin-top: 3rem; font-size: 1.8rem;">Detrás de <span
+                    class="neon-text">Cámaras</span></h3>
+            <div class="videos-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
                 <!-- Videos -->
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1ELaYwQ5IJo4rlnsBfl3NCwHpXJK4HZaw/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/15VkBwuRH2SWp7dFTgQzVq9G7GzFv1cPC/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1RNhU-y82MxlS7Ruqcm7kASn-_mxIjqTA/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1mhRQV7wA7SvNmSTdfK4xscEwq4ICJ2B7/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1_kfY6smdu6HqgnX1tERYFLVbUDyBg1Aj/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
-                <div class="video-container hover-glow"><iframe src="https://drive.google.com/file/d/1vzPkTr3BM1IWeLnAlk5bBv960d4exIRZ/preview" width="100%" height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="vertical-video-container hover-glow"><iframe
+                        src="https://drive.google.com/file/d/1ELaYwQ5IJo4rlnsBfl3NCwHpXJK4HZaw/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="vertical-video-container hover-glow"><iframe
+                        src="https://drive.google.com/file/d/15VkBwuRH2SWp7dFTgQzVq9G7GzFv1cPC/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="vertical-video-container hover-glow"><iframe
+                        src="https://drive.google.com/file/d/1RNhU-y82MxlS7Ruqcm7kASn-_mxIjqTA/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe></div>
+
+                <div class="vertical-video-container hover-glow"><iframe
+                        src="https://drive.google.com/file/d/1_kfY6smdu6HqgnX1tERYFLVbUDyBg1Aj/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe></div>
+                <div class="vertical-video-container hover-glow"><iframe
+                        src="https://drive.google.com/file/d/1vzPkTr3BM1IWeLnAlk5bBv960d4exIRZ/preview" width="100%"
+                        height="100%" frameborder="0" allowfullscreen></iframe></div>
             </div>
-            
+
             <div style="text-align: center; margin-top: 40px;">
                 <a href="galeria/fotos.html" class="btn-secondary">Explorar Galería Completa</a>
             </div>
@@ -249,19 +332,23 @@
     <section class="section store-section" id="store">
         <div class="container">
             <h2 class="section-title">Nuestras <span class="neon-text">Instalaciones</span></h2>
-            <p class="section-subtitle">Tecnología avanzada y ambientes de lujo para tu comodidad en Bogotá, Miami y México D.F.</p>
+            <p class="section-subtitle">Tecnología avanzada y ambientes de lujo para tu comodidad en Bogotá, Miami y
+                México D.F.</p>
 
             <div class="instalaciones-grid">
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg" alt="Lobby Clinica" loading="lazy">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/STU0093-copy.jpg" alt="Lobby Clinica"
+                        loading="lazy">
                     <div class="instalacion-overlay">Recepción VIP</div>
                 </div>
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-22.jpg" alt="Consultorio Premium" loading="lazy">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-22.jpg"
+                        alt="Consultorio Premium" loading="lazy">
                     <div class="instalacion-overlay">Consultorios de Vanguardia</div>
                 </div>
                 <div class="instalacion-item hover-glow">
-                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-16.jpg" alt="Tecnología Dental" loading="lazy">
+                    <img src="https://www.doctormartinprato.com/wp-content/uploads/Dr-Martin-Prato-Instalaciones-Clinica-Odontologica-Bogota-Mexico-Miami-16.jpg"
+                        alt="Tecnología Dental" loading="lazy">
                     <div class="instalacion-overlay">Laboratorio Digital CAD/CAM</div>
                 </div>
             </div>
@@ -352,15 +439,20 @@
         <div class="container">
             <div class="contact-cta text-center" style="margin-bottom: 80px;">
                 <h2 class="section-title">¿Listo para tu <span class="neon-text">Transformación</span>?</h2>
-                <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn large-btn" style="margin-top: 20px;">Agenda tu consulta VIP</a>
+                <a href="https://wa.me/573022780781" target="_blank" class="btn btn-primary glow-btn large-btn"
+                    style="margin-top: 20px;">Agenda tu consulta VIP</a>
             </div>
-            
+
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div class="footer-logo">DR. MARTÍN <span class="neon-text">PRATO</span></div>
-                    <p class="footer-description">Arquitecto de Sonrisas. Especialista en alta estética dental y rehabilitación oral, transformando vidas a través de la excelencia clínica y tecnológica en Bogotá y México.</p>
+                    <div class="footer-logo">
+                        <img src="material%20audiovisual%20martin%20prato/logos/Logo%20Martin%20blnaco.PNG" alt="Dr Martin Prato Logo" style="max-height: 80px; width: auto; object-fit: contain;">
+                    </div>
+                    <p class="footer-description" style="margin-top: 15px;">Arquitecto de Sonrisas. Especialista en alta estética dental y
+                        rehabilitación oral, transformando vidas a través de la excelencia clínica y tecnológica en
+                        Bogotá y México.</p>
                 </div>
-                
+
                 <div class="footer-col" style="padding-left: 20px;">
                     <h4>Navegación</h4>
                     <ul class="footer-links">
@@ -371,7 +463,7 @@
                         <li><a href="#store">Nuestras Sedes</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Procedimientos</h4>
                     <ul class="footer-links">
@@ -382,29 +474,38 @@
                         <li><a href="servicios/periodoncia.html">Periodoncia</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-col">
                     <h4>Contacto</h4>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-map-marker-alt"></i> <span><strong>Bogotá:</strong> Calle 127A # 7-19, Of. 308, Centro Access</span></li>
-                        <li><i class="fas fa-map-marker-alt"></i> <span><strong>México:</strong> Presidente Masaryk 360b, Int. 102</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span><strong>Bogotá:</strong> Calle 127A # 7-19, Of.
+                                308, Centro Access</span></li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span><strong>México:</strong> Presidente Masaryk
+                                360b, Int. 102</span></li>
                         <li><i class="fab fa-whatsapp"></i> <span>+57 302 278-0781</span></li>
                     </ul>
                     <div class="social-footer">
-                        <a href="https://www.instagram.com/martinprato" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/DrMartinPrato/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.youtube.com/@doctormartinprato" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@doctormartinprato" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/martinprato" target="_blank" class="social-icon"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/DrMartinPrato/" target="_blank" class="social-icon"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@doctormartinprato" target="_blank" class="social-icon"><i
+                                class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@doctormartinprato" target="_blank" class="social-icon"><i
+                                class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
-            
-            <div class="footer-bottom-bar">
-                <p>&copy; 2026 Dr. Martín Prato. Todos los derechos reservados. Arquitecto de Sonrisas.</p>
-                <div style="display: flex; gap: 20px;">
-                    <span>Bogotá</span>
-                    <span>México D.F.</span>
-                    <span>Miami</span>
+
+            <div class="footer-bottom-bar" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <img src="material%20audiovisual%20martin%20prato/logos/publicidad-footer.jpg" alt="Publicidad Footer" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;">
+                <div style="width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; align-items: center;">
+                    <p>&copy; 2026 Dr. Martín Prato. Todos los derechos reservados. Arquitecto de Sonrisas.</p>
+                    <div style="display: flex; gap: 20px;">
+                        <span>Bogotá</span>
+                        <span>México D.F.</span>
+                        <span>Miami</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -416,12 +517,18 @@
 
     <!-- WhatsApp CTA -->
     <a href="https://wa.me/573022780781" target="_blank" class="whatsapp-cta" title="Contáctanos por WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
     </a>
 
     <!-- Chatbot Toggle Button -->
     <button class="chat-toggle-btn" id="chat-toggle-btn" title="Habla con nuestra Asistente">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.03 2 11c0 2.802 1.488 5.305 3.82 6.953L5 22l4.475-2.09c.813.23 1.674.35 2.525.35 5.523 0 10-4.03 10-9s-4.477-9-10-9zm0 16c-.732 0-1.45-.1-2.146-.289l-2.854 1.332.483-2.454C5.59 15.344 4 13.313 4 11c0-3.86 3.582-7 8-7s8 3.14 8 7-3.582 7-8 7z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M12 2C6.477 2 2 6.03 2 11c0 2.802 1.488 5.305 3.82 6.953L5 22l4.475-2.09c.813.23 1.674.35 2.525.35 5.523 0 10-4.03 10-9s-4.477-9-10-9zm0 16c-.732 0-1.45-.1-2.146-.289l-2.854 1.332.483-2.454C5.59 15.344 4 13.313 4 11c0-3.86 3.582-7 8-7s8 3.14 8 7-3.582 7-8 7z" />
+        </svg>
     </button>
 
     <!-- Virtual Secretary Widget -->
@@ -431,12 +538,15 @@
             <span class="close-chat" id="close-chat">✕</span>
         </div>
         <div class="chat-body" id="chat-body">
-            <div class="chat-msg bot">¡Hola! Soy tu asistente virtual premium. 💎 ¿En qué puedo ayudarte a conseguir la sonrisa de tus sueños hoy?</div>
+            <div class="chat-msg bot">¡Hola! Soy tu asistente virtual premium. 💎 ¿En qué puedo ayudarte a conseguir la
+                sonrisa de tus sueños hoy?</div>
         </div>
         <div class="chat-options" id="chat-options">
             <button class="chat-option-btn" onclick="handleChatOption('Agendar Cita')">📅 Agendar Cita</button>
-            <button class="chat-option-btn" onclick="handleChatOption('Conocer Procedimientos')">✨ Conocer Procedimientos</button>
-            <button class="chat-option-btn" onclick="handleChatOption('Hablar con un Humano')">👩‍⚕️ Hablar con un Humano</button>
+            <button class="chat-option-btn" onclick="handleChatOption('Conocer Procedimientos')">✨ Conocer
+                Procedimientos</button>
+            <button class="chat-option-btn" onclick="handleChatOption('Hablar con un Humano')">👩‍⚕️ Hablar con un
+                Humano</button>
         </div>
     </div>
 

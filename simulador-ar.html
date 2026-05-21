@@ -397,6 +397,10 @@
     <!-- Audio for microinteractions -->
     <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
 
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
     <script>
         const video = document.getElementById('webcam');
         const overlay = document.getElementById('overlay');
@@ -418,15 +422,15 @@
 
         // Load face-api.js models from a reliable CDN
         Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/'),
-            faceapi.nets.faceLandmark68Net.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/')
+            faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models/'),
+            faceapi.nets.faceLandmark68Net.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models/')
         ]).then(() => {
             modelsLoaded = true;
             loadingText.innerText = "Cámara Lista";
             loadingIndicator.style.display = 'none';
         }).catch(err => {
             console.error("Error loading face-api models:", err);
-            loadingText.innerText = "Error cargando IA. Habilita cámara.";
+            loadingText.innerText = "Error IA. Por favor recarga.";
         });
 
         function startVideo() {
@@ -461,23 +465,23 @@
                 canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
                 
                 // Draw luxury AR tracking overlay
-                faceapi.draw.drawFaceLandmarks(canvas, resizedDetections, {
-                    drawLines: true,
-                    drawPoints: true,
-                    lineWidth: 1,
-                    pointColor: '#d4af37',
-                    lineColor: 'rgba(212, 175, 55, 0.5)'
-                });
-
-                // Simulate placing a "Veneer" overlay if mouth is detected
                 if (resizedDetections.length > 0) {
+                    faceapi.draw.drawFaceLandmarks(canvas, resizedDetections, {
+                        drawLines: true,
+                        drawPoints: true,
+                        lineWidth: 1,
+                        pointColor: '#d4af37',
+                        lineColor: 'rgba(212, 175, 55, 0.5)'
+                    });
+
+                    // Simulate placing a "Veneer" overlay if mouth is detected
                     const landmarks = resizedDetections[0].landmarks;
                     const mouth = landmarks.getMouth();
                     
                     const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; // Glowing effect for teeth
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // Glowing effect for teeth
                     ctx.shadowColor = '#fff';
-                    ctx.shadowBlur = 10;
+                    ctx.shadowBlur = 15;
                     ctx.beginPath();
                     ctx.moveTo(mouth[0].x, mouth[0].y);
                     for (let i = 1; i < mouth.length; i++) {
@@ -486,48 +490,222 @@
                     ctx.closePath();
                     ctx.fill();
                 }
-
             }, 100);
         });
 
-        // 3D Model Interaction
-        const modelViewer = document.getElementById('tooth-model');
-        const lightVal = document.getElementById('light-val');
+        // --------------------------------------------------------
+        // EXOCAD-STYLE 3D SIMULATOR USING THREE.JS
+        // --------------------------------------------------------
+        const viewerContainer = document.querySelector('.exo-viewer');
+        // Clear any existing model-viewer
+        viewerContainer.innerHTML = '';
+        
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111111);
+        
+        const camera = new THREE.PerspectiveCamera(45, viewerContainer.clientWidth / viewerContainer.clientHeight, 0.1, 1000);
+        camera.position.set(0, 2, 8);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(viewerContainer.clientWidth, viewerContainer.clientHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        viewerContainer.appendChild(renderer.domElement);
+        
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.0;
+        
+        // Lighting setup
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(5, 10, 5);
+        mainLight.castShadow = true;
+        scene.add(mainLight);
+        
+        const fillLight = new THREE.PointLight(0xd4af37, 0.5);
+        fillLight.position.set(-5, 0, 5);
+        scene.add(fillLight);
 
-        function changeMaterial(type, btnElement) {
+        // Dental Parts Group
+        const dentalGroup = new THREE.Group();
+        scene.add(dentalGroup);
+
+        // Materials
+        const materials = {
+            jaw: new THREE.MeshStandardMaterial({ color: 0xd48a56, roughness: 0.7 }),
+            anatomic: new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.2, opacity: 1, roughness: 0.1, metalness: 0.1, clearcoat: 1.0 }),
+            reduced: new THREE.MeshStandardMaterial({ color: 0x829a73, roughness: 0.5 }),
+            abutments: new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.8, roughness: 0.2 }),
+            gingiva: new THREE.MeshStandardMaterial({ color: 0xc27a8e, roughness: 0.6, transparent: true, opacity: 0.9 })
+        };
+
+        const partsMap = {};
+
+        // 1. Create Jaw Base
+        const jawGeo = new THREE.CylinderGeometry(2, 2, 1, 32, 1, false, 0, Math.PI);
+        const jaw = new THREE.Mesh(jawGeo, materials.jaw);
+        jaw.position.y = -0.5;
+        jaw.rotation.x = Math.PI / 2;
+        jaw.castShadow = true;
+        jaw.receiveShadow = true;
+        dentalGroup.add(jaw);
+        partsMap['jaw'] = jaw;
+
+        // 2. Create Gingiva
+        const gingivaGeo = new THREE.TorusGeometry(2, 0.6, 16, 50, Math.PI);
+        const gingiva = new THREE.Mesh(gingivaGeo, materials.gingiva);
+        gingiva.position.y = 0;
+        gingiva.rotation.x = Math.PI / 2;
+        gingiva.castShadow = true;
+        gingiva.receiveShadow = true;
+        dentalGroup.add(gingiva);
+        partsMap['gingiva'] = gingiva;
+
+        // 3. Create Anatomic Shapes (Teeth) & Abutments
+        const teethGroup = new THREE.Group();
+        const abutmentGroup = new THREE.Group();
+        const reducedGroup = new THREE.Group();
+        
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 7) * Math.PI - Math.PI / 2;
+            const x = Math.cos(angle) * 2;
+            const z = Math.sin(angle) * 2;
+            
+            // Tooth
+            const toothGeo = new THREE.BoxGeometry(0.6, 1.2, 0.5);
+            const tooth = new THREE.Mesh(toothGeo, materials.anatomic);
+            tooth.position.set(z, 0.8, x);
+            // Slight arch rotation
+            tooth.rotation.y = -angle;
+            tooth.castShadow = true;
+            teethGroup.add(tooth);
+
+            // Abutment (underneath)
+            const abutGeo = new THREE.CylinderGeometry(0.2, 0.2, 1);
+            const abut = new THREE.Mesh(abutGeo, materials.abutments);
+            abut.position.set(z, 0.2, x);
+            abutments.add(abut);
+            
+            // Reduced (inner core)
+            const redGeo = new THREE.BoxGeometry(0.4, 0.8, 0.3);
+            const red = new THREE.Mesh(redGeo, materials.reduced);
+            red.position.set(z, 0.6, x);
+            red.rotation.y = -angle;
+            reducedGroup.add(red);
+        }
+        
+        dentalGroup.add(teethGroup);
+        dentalGroup.add(abutmentGroup);
+        dentalGroup.add(reducedGroup);
+        
+        partsMap['anatomic'] = teethGroup;
+        partsMap['abutments'] = abutmentGroup;
+        partsMap['reduced'] = reducedGroup;
+
+        // Make model look good
+        dentalGroup.rotation.x = -0.3;
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            if(!viewerContainer) return;
+            camera.aspect = viewerContainer.clientWidth / viewerContainer.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(viewerContainer.clientWidth, viewerContainer.clientHeight);
+        });
+
+        // Handle Exocad UI Interactivity
+        document.querySelectorAll('.exo-item').forEach(item => {
+            const eyeIcon = item.querySelector('.fa-eye');
+            if(eyeIcon) {
+                eyeIcon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let targetPart = null;
+                    if(item.classList.contains('bg-jaw')) targetPart = 'jaw';
+                    if(item.classList.contains('bg-anatomic')) targetPart = 'anatomic';
+                    if(item.classList.contains('bg-reduced')) targetPart = 'reduced';
+                    if(item.classList.contains('bg-abutments')) targetPart = 'abutments';
+                    if(item.classList.contains('bg-gingiva')) targetPart = 'gingiva';
+                    
+                    if(targetPart && partsMap[targetPart]) {
+                        const isVisible = partsMap[targetPart].visible;
+                        partsMap[targetPart].visible = !isVisible;
+                        eyeIcon.style.opacity = isVisible ? "0.3" : "1";
+                    }
+                });
+            }
+        });
+
+        // FOV Slider
+        const fovSlider = document.querySelector('.exo-fov input');
+        const fovDisplay = document.querySelector('.exo-fov span:last-child');
+        if(fovSlider) {
+            fovSlider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                camera.fov = parseInt(val);
+                camera.updateProjectionMatrix();
+                fovDisplay.innerText = val + '°';
+            });
+        }
+
+        // Material Changes
+        window.changeMaterial = function(type, btnElement) {
             document.querySelectorAll('.ar-panel .btn-luxury').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
-            // Simulate material change via model-viewer attributes or changing the model src
-            // We use different environment images or exposure to simulate translucency/material
             if (type === 'zirconio') {
-                modelViewer.exposure = "1.5";
-                modelViewer.shadowIntensity = "0.5";
+                materials.anatomic.transmission = 0.1;
+                materials.anatomic.roughness = 0.1;
+                materials.anatomic.color.setHex(0xffffff);
             } else if (type === 'emax') {
-                modelViewer.exposure = "0.8";
-                modelViewer.shadowIntensity = "1";
-                // E-Max is more translucent
+                materials.anatomic.transmission = 0.6;
+                materials.anatomic.roughness = 0.05;
+                materials.anatomic.color.setHex(0xfcfcfc);
             } else {
-                modelViewer.exposure = "1";
-                modelViewer.shadowIntensity = "0.8";
+                materials.anatomic.transmission = 0.3;
+                materials.anatomic.roughness = 0.2;
+                materials.anatomic.color.setHex(0xfaf0e6);
             }
-        }
+        };
 
-        function changeLighting(val) {
-            if (val == 0) {
-                modelViewer.environmentImage = "legacy";
-                modelViewer.exposure = "0.4";
+        // Lighting Changes
+        const lightVal = document.getElementById('light-val');
+        window.changeLighting = function(val) {
+            if (val == 0) { // Night
+                ambientLight.intensity = 0.2;
+                mainLight.intensity = 0.3;
+                mainLight.color.setHex(0xffaa55);
+                fillLight.intensity = 0.1;
+                scene.background = new THREE.Color(0x050505);
                 lightVal.innerText = "Cena de Noche";
-            } else if (val == 1) {
-                modelViewer.environmentImage = "neutral";
-                modelViewer.exposure = "1";
+            } else if (val == 1) { // Day
+                ambientLight.intensity = 0.6;
+                mainLight.intensity = 0.8;
+                mainLight.color.setHex(0xffffff);
+                fillLight.intensity = 0.5;
+                scene.background = new THREE.Color(0x111111);
                 lightVal.innerText = "Luz de Día";
-            } else {
-                modelViewer.environmentImage = "https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr";
-                modelViewer.exposure = "1.2";
+            } else { // Office
+                ambientLight.intensity = 0.8;
+                mainLight.intensity = 1.2;
+                mainLight.color.setHex(0xeef5ff);
+                fillLight.intensity = 0.8;
+                scene.background = new THREE.Color(0x222222);
                 lightVal.innerText = "Luz de Oficina";
             }
-        }
+        };
     </script>
 </body>
 </html>
