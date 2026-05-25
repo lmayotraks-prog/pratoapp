@@ -1,711 +1,125 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Martin Prato | Simulador AR & 3D Virtual Try-On</title>
+    <title>Dr. Martin Prato - Simulador AR & 3D</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Base CSS -->
+    <!-- Base Styles -->
     <link rel="stylesheet" href="index.css">
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-    
     <style>
-        body {
-            background-color: #050505; /* Black matte for luxury */
-            color: #fff;
+        body, html {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .ar-container {
-            padding-top: 100px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .ar-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .ar-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .ar-header p {
-            color: #aaa;
-            font-weight: 300;
-        }
-
-        .ar-workspace {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-            width: 90%;
-            max-width: 1400px;
-            margin-bottom: 3rem;
-        }
-
-        .ar-panel {
-            flex: 1;
-            min-width: 350px;
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .webcam-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #webcam {
-            width: 100%;
             height: 100%;
-            object-fit: cover;
-            transform: scaleX(-1);
+            overflow: hidden;
+            background-color: transparent; /* Allow canvas to show */
         }
 
-        #overlay {
+        .simulador-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            transform: scaleX(-1);
+            z-index: 1;
+            padding-top: 80px; /* Space for navbar */
+            /* Add blend mode so iframe background blends with animated particles */
+            mix-blend-mode: lighten; 
         }
 
-        .controls {
-            margin-top: 1.5rem;
-        }
-
-        .control-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .control-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #ccc;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-luxury {
-            background: transparent;
-            border: 1px solid var(--primary, #d4af37);
-            color: var(--primary, #d4af37);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-        }
-
-        .btn-luxury:hover, .btn-luxury.active {
-            background: var(--primary, #d4af37);
-            color: #000;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* Slider */
-        input[type=range] {
-            -webkit-appearance: none;
+        .simulador-iframe {
             width: 100%;
-            background: transparent;
+            height: 100%;
+            border: none;
         }
 
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: var(--primary, #d4af37);
-            cursor: pointer;
-            margin-top: -6px;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-        }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #333;
-            border-radius: 2px;
-        }
-
-        model-viewer {
-            width: 100%;
-            height: 350px;
-            background-color: transparent;
-            --poster-color: transparent;
-        }
-        
-        .loading-ar {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #d4af37;
-            font-family: 'Cinzel', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(212, 175, 55, 0.3);
-            border-top: 3px solid #d4af37;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Exocad Sidebar Styles */
-        .exo-layout {
-            display: flex;
-            width: 100%;
-            height: 450px;
-            margin-top: 1rem;
-        }
-        .exo-sidebar {
-            width: 250px;
-            background: rgba(15, 15, 15, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 1rem;
-            overflow-y: auto;
-            border-radius: 12px;
-            margin-right: 1rem;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.5);
-        }
-        .exo-fov {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-            color: #fff;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .exo-group {
-            margin-bottom: 0.5rem;
-        }
-        .exo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem;
-            background: rgba(30, 30, 30, 0.8);
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #fff;
-        }
-        .exo-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.6rem 0.8rem;
-            margin-top: 5px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #fff;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .exo-icons {
-            display: flex;
-            gap: 8px;
-        }
-        .exo-icons i { cursor: pointer; transition: color 0.2s; color: #fff; }
-        .exo-icons i:hover { color: #d4af37 !important; }
-        .bg-jaw { background: #d48a56; }
-        .bg-anatomic { background: #1f5ca6; }
-        .bg-reduced { background: #829a73; }
-        .bg-abutments { background: #4a4a4a; }
-        .bg-implant { background: #5c3a7d; }
-        .bg-screw { background: #a6b825; color: #000 !important; }
-        .bg-gingiva { background: #c27a8e; }
-        .bg-bottom { background: #d48a56; }
-        .bg-other { background: #5c3a7d; }
-        
-        .exo-viewer {
-            flex: 1;
-            border-radius: 12px;
-            overflow: hidden;
-            background: radial-gradient(circle, rgba(40,40,40,1) 0%, rgba(10,10,10,1) 100%);
-            box-shadow: inset 0 0 30px #000;
-            position: relative;
+        /* Adjust navbar specifically for this page so it doesn't block interactions */
+        .navbar {
+            background: rgba(10, 10, 10, 0.95) !important;
         }
     </style>
 </head>
-<body class="dark-mode" data-theme="gold">
 
+<body class="dark-mode" data-theme="gold">
     <!-- Navigation -->
     <nav class="navbar glass-panel">
         <div class="nav-content">
             <a href="index.html" class="logo">
-                <span class="neon-text" style="font-family: 'Cinzel'; font-size: 1.5rem; font-weight: 800; color: #fff;">DR. MARTÍN PRATO</span>
+                <img src="material audiovisual martin prato/logos/Logo Martin blnaco.PNG" alt="Dr. Martin Prato"
+                    class="nav-logo-img">
             </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Volver al Inicio</a>
-                <a href="analisis-ia.html" class="nav-link">Análisis IA</a>
-                <a href="dashboard-vip.html" class="nav-link btn-primary glow-btn">Portal Privado</a>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="index.html#about" class="nav-link">Dr. Martin</a>
+                <a href="index.html#store" class="nav-link">Sedes</a>
+                <!-- Galería Dropdown -->
+                <div class="dropdown" id="galeria-dropdown">
+                    <a href="index.html#galeria" class="nav-link">Galería <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="galeria/fotos.html" class="dropdown-item">Casos de Éxito</a>
+                        <a href="galeria/videos.html" class="dropdown-item">Testimonios</a>
+                        <a href="simulador-ar.html" class="dropdown-item active">Simulador AR & 3D</a>
+                    </div>
+                </div>
+                <a href="index.html#vip-consultation" class="nav-link">Contacto</a>
             </div>
         </div>
     </nav>
 
-    <div class="ar-container">
-        <div class="ar-header">
-            <h1>Virtual Try-On <span style="color: #d4af37;">&</span> AR Mirror</h1>
-            <p>Experimenta tu nueva sonrisa en tiempo real con tecnología WebAssembly</p>
-        </div>
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
 
-        <div class="ar-workspace">
-            <!-- Left Panel: Webcam AR -->
-            <div class="ar-panel">
-                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-camera"></i> Live AR Mirror</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 1.5rem;">Seguimiento facial en tiempo real para previsualización.</p>
-                
-                <div class="webcam-container">
-                    <div class="loading-ar" id="loading-indicator">
-                        <div class="spinner"></div>
-                        <span id="loading-text">Cargando Modelos IA...</span>
-                    </div>
-                    <video id="webcam" autoplay muted playsinline></video>
-                    <canvas id="overlay"></canvas>
-                </div>
-
-                <div class="controls">
-                    <div class="control-group">
-                        <label>Estado de Cámara</label>
-                        <button class="btn-luxury active" id="btn-start-camera" onclick="startVideo()">Encender Espejo AR</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Panel: 3D Material & Lighting -->
-            <div class="ar-panel" style="flex: 2; min-width: 600px;">
-                <h3 style="font-family: 'Cinzel'; margin-top: 0; color: #d4af37;"><i class="fas fa-gem"></i> Motor 3D Profesional (DentalCAD)</h3>
-                <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 0.5rem;">Motor de visualización de alta fidelidad. Selecciona componentes y capas.</p>
-                
-                <div class="exo-layout">
-                    <!-- Exocad-style Sidebar -->
-                    <div class="exo-sidebar">
-                        <div class="exo-fov">
-                            <span>FOV</span>
-                            <input type="range" min="1" max="90" value="45" style="flex:1;">
-                            <span>1°</span>
-                        </div>
-                        <div class="exo-group">
-                            <div class="exo-header"><i class="fas fa-chevron-up"></i> Show / Hide</div>
-                            <div class="exo-item bg-jaw">Jaw scans <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-anatomic"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Anatomic shapes <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-reduced"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Reduced parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-abutments"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Abutments <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-implant"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Implant parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-screw"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Screw channels <div class="exo-icons"><i class="fas fa-eye" style="color:#000;"></i><i class="fas fa-cube" style="color:#000;"></i></div></div>
-                            <div class="exo-item bg-gingiva">Gingiva design parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-bottom"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> Bottom of designs <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item bg-other"><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i> All other parts <div class="exo-icons"><i class="fas fa-eye"></i><i class="fas fa-cube"></i></div></div>
-                            <div class="exo-item" style="justify-content: center; background: transparent; border: 1px solid #5c3a7d;">Show All</div>
-                        </div>
-                    </div>
-
-                    <!-- 3D Model Viewer -->
-                    <div class="exo-viewer">
-                        <model-viewer id="tooth-model" 
-                            src="https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf" 
-                            environment-image="neutral" 
-                            exposure="1" 
-                            camera-controls 
-                            auto-rotate
-                            shadow-intensity="1">
-                        </model-viewer>
-                    </div>
-                </div>
-
-                <div class="controls">
-                    <div class="control-group">
-                        <label>Material de Restauración</label>
-                        <div class="btn-group">
-                            <button class="btn-luxury active" onclick="changeMaterial('zirconio', this)">Zirconio Premium</button>
-                            <button class="btn-luxury" onclick="changeMaterial('emax', this)">Disilicato (E-Max)</button>
-                            <button class="btn-luxury" onclick="changeMaterial('porcelana', this)">Porcelana Feldespática</button>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label>Ambiente de Iluminación <span id="light-val" style="color: #fff; float: right;">Luz de Día</span></label>
-                        <input type="range" id="light-slider" min="0" max="2" value="1" step="1" oninput="changeLighting(this.value)">
-                        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #777; margin-top: 5px;">
-                            <span>Cena de Noche</span>
-                            <span>Luz de Día</span>
-                            <span>Luz de Oficina</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Simulator iframe -->
+    <div class="simulador-container">
+        <iframe src="https://webview.dental/demo/view/6d38b28e256d4af5adaf5619c5f2e0dc.html" class="simulador-iframe" allow="xr-spatial-tracking; fullscreen" allowfullscreen></iframe>
     </div>
 
-    <!-- Audio for microinteractions -->
-    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
-
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
+    <!-- Scripts -->
+    <script src="script.js"></script>
     <script>
-        const video = document.getElementById('webcam');
-        const overlay = document.getElementById('overlay');
-        const loadingIndicator = document.getElementById('loading-indicator');
-        const loadingText = document.getElementById('loading-text');
-        let modelsLoaded = false;
+        // Custom Cursor (optional for this page, disabled inside iframe anyway)
+        
+        // Mobile Menu Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+            const galeriaDropdown = document.getElementById('galeria-dropdown');
 
-        // Play subtle sound on buttons
-        const playSound = () => {
-            const audio = document.getElementById('click-sound');
-            audio.volume = 0.2;
-            audio.currentTime = 0;
-            audio.play().catch(e => {});
-        };
-
-        document.querySelectorAll('.btn-luxury').forEach(btn => {
-            btn.addEventListener('click', playSound);
-        });
-
-        // Load face-api.js models from a reliable CDN
-        Promise.all([
-            faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models/'),
-            faceapi.nets.faceLandmark68Net.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models/')
-        ]).then(() => {
-            modelsLoaded = true;
-            loadingText.innerText = "Cámara Lista";
-            loadingIndicator.style.display = 'none';
-        }).catch(err => {
-            console.error("Error loading face-api models:", err);
-            loadingText.innerText = "Error IA. Por favor recarga.";
-        });
-
-        function startVideo() {
-            if (!modelsLoaded) {
-                alert("Por favor espera a que los modelos de IA se carguen.");
-                return;
-            }
-            loadingIndicator.style.display = 'flex';
-            loadingText.innerText = "Iniciando Cámara...";
-            
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    video.srcObject = stream;
-                    loadingIndicator.style.display = 'none';
-                })
-                .catch(err => {
-                    console.error("Error accessing webcam: ", err);
-                    loadingText.innerText = "Acceso a cámara denegado.";
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
                 });
-        }
+            }
 
-        video.addEventListener('play', () => {
-            const canvas = faceapi.createCanvasFromMedia(video);
-            overlay.replaceWith(canvas);
-            canvas.id = 'overlay';
-            const displaySize = { width: video.clientWidth, height: video.clientHeight };
-            faceapi.matchDimensions(canvas, displaySize);
-
-            setInterval(async () => {
-                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw luxury AR tracking overlay
-                if (resizedDetections.length > 0) {
-                    faceapi.draw.drawFaceLandmarks(canvas, resizedDetections, {
-                        drawLines: true,
-                        drawPoints: true,
-                        lineWidth: 1,
-                        pointColor: '#d4af37',
-                        lineColor: 'rgba(212, 175, 55, 0.5)'
-                    });
-
-                    // Simulate placing a "Veneer" overlay if mouth is detected
-                    const landmarks = resizedDetections[0].landmarks;
-                    const mouth = landmarks.getMouth();
-                    
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // Glowing effect for teeth
-                    ctx.shadowColor = '#fff';
-                    ctx.shadowBlur = 15;
-                    ctx.beginPath();
-                    ctx.moveTo(mouth[0].x, mouth[0].y);
-                    for (let i = 1; i < mouth.length; i++) {
-                        ctx.lineTo(mouth[i].x, mouth[i].y);
-                    }
-                    ctx.closePath();
-                    ctx.fill();
-                }
-            }, 100);
-        });
-
-        // --------------------------------------------------------
-        // EXOCAD-STYLE 3D SIMULATOR USING THREE.JS
-        // --------------------------------------------------------
-        const viewerContainer = document.querySelector('.exo-viewer');
-        // Clear any existing model-viewer
-        viewerContainer.innerHTML = '';
-        
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x111111);
-        
-        const camera = new THREE.PerspectiveCamera(45, viewerContainer.clientWidth / viewerContainer.clientHeight, 0.1, 1000);
-        camera.position.set(0, 2, 8);
-        
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(viewerContainer.clientWidth, viewerContainer.clientHeight);
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        viewerContainer.appendChild(renderer.domElement);
-        
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 1.0;
-        
-        // Lighting setup
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-        
-        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        mainLight.position.set(5, 10, 5);
-        mainLight.castShadow = true;
-        scene.add(mainLight);
-        
-        const fillLight = new THREE.PointLight(0xd4af37, 0.5);
-        fillLight.position.set(-5, 0, 5);
-        scene.add(fillLight);
-
-        // Dental Parts Group
-        const dentalGroup = new THREE.Group();
-        scene.add(dentalGroup);
-
-        // Materials
-        const materials = {
-            jaw: new THREE.MeshStandardMaterial({ color: 0xd48a56, roughness: 0.7 }),
-            anatomic: new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.2, opacity: 1, roughness: 0.1, metalness: 0.1, clearcoat: 1.0 }),
-            reduced: new THREE.MeshStandardMaterial({ color: 0x829a73, roughness: 0.5 }),
-            abutments: new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.8, roughness: 0.2 }),
-            gingiva: new THREE.MeshStandardMaterial({ color: 0xc27a8e, roughness: 0.6, transparent: true, opacity: 0.9 })
-        };
-
-        const partsMap = {};
-
-        // 1. Create Jaw Base
-        const jawGeo = new THREE.CylinderGeometry(2, 2, 1, 32, 1, false, 0, Math.PI);
-        const jaw = new THREE.Mesh(jawGeo, materials.jaw);
-        jaw.position.y = -0.5;
-        jaw.rotation.x = Math.PI / 2;
-        jaw.castShadow = true;
-        jaw.receiveShadow = true;
-        dentalGroup.add(jaw);
-        partsMap['jaw'] = jaw;
-
-        // 2. Create Gingiva
-        const gingivaGeo = new THREE.TorusGeometry(2, 0.6, 16, 50, Math.PI);
-        const gingiva = new THREE.Mesh(gingivaGeo, materials.gingiva);
-        gingiva.position.y = 0;
-        gingiva.rotation.x = Math.PI / 2;
-        gingiva.castShadow = true;
-        gingiva.receiveShadow = true;
-        dentalGroup.add(gingiva);
-        partsMap['gingiva'] = gingiva;
-
-        // 3. Create Anatomic Shapes (Teeth) & Abutments
-        const teethGroup = new THREE.Group();
-        const abutmentGroup = new THREE.Group();
-        const reducedGroup = new THREE.Group();
-        
-        for (let i = 0; i < 8; i++) {
-            const angle = (i / 7) * Math.PI - Math.PI / 2;
-            const x = Math.cos(angle) * 2;
-            const z = Math.sin(angle) * 2;
-            
-            // Tooth
-            const toothGeo = new THREE.BoxGeometry(0.6, 1.2, 0.5);
-            const tooth = new THREE.Mesh(toothGeo, materials.anatomic);
-            tooth.position.set(z, 0.8, x);
-            // Slight arch rotation
-            tooth.rotation.y = -angle;
-            tooth.castShadow = true;
-            teethGroup.add(tooth);
-
-            // Abutment (underneath)
-            const abutGeo = new THREE.CylinderGeometry(0.2, 0.2, 1);
-            const abut = new THREE.Mesh(abutGeo, materials.abutments);
-            abut.position.set(z, 0.2, x);
-            abutments.add(abut);
-            
-            // Reduced (inner core)
-            const redGeo = new THREE.BoxGeometry(0.4, 0.8, 0.3);
-            const red = new THREE.Mesh(redGeo, materials.reduced);
-            red.position.set(z, 0.6, x);
-            red.rotation.y = -angle;
-            reducedGroup.add(red);
-        }
-        
-        dentalGroup.add(teethGroup);
-        dentalGroup.add(abutmentGroup);
-        dentalGroup.add(reducedGroup);
-        
-        partsMap['anatomic'] = teethGroup;
-        partsMap['abutments'] = abutmentGroup;
-        partsMap['reduced'] = reducedGroup;
-
-        // Make model look good
-        dentalGroup.rotation.x = -0.3;
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Handle Window Resize
-        window.addEventListener('resize', () => {
-            if(!viewerContainer) return;
-            camera.aspect = viewerContainer.clientWidth / viewerContainer.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(viewerContainer.clientWidth, viewerContainer.clientHeight);
-        });
-
-        // Handle Exocad UI Interactivity
-        document.querySelectorAll('.exo-item').forEach(item => {
-            const eyeIcon = item.querySelector('.fa-eye');
-            if(eyeIcon) {
-                eyeIcon.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    let targetPart = null;
-                    if(item.classList.contains('bg-jaw')) targetPart = 'jaw';
-                    if(item.classList.contains('bg-anatomic')) targetPart = 'anatomic';
-                    if(item.classList.contains('bg-reduced')) targetPart = 'reduced';
-                    if(item.classList.contains('bg-abutments')) targetPart = 'abutments';
-                    if(item.classList.contains('bg-gingiva')) targetPart = 'gingiva';
-                    
-                    if(targetPart && partsMap[targetPart]) {
-                        const isVisible = partsMap[targetPart].visible;
-                        partsMap[targetPart].visible = !isVisible;
-                        eyeIcon.style.opacity = isVisible ? "0.3" : "1";
+            // Click-to-toggle dropdown on mobile instead of hover
+            if (galeriaDropdown) {
+                galeriaDropdown.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault(); 
+                        // Only prevent default if they clicked the main link, not sub-links
+                        if(e.target.classList.contains('dropdown-item')) {
+                            window.location.href = e.target.href;
+                            return;
+                        }
+                        galeriaDropdown.classList.toggle('active');
                     }
                 });
             }
         });
-
-        // FOV Slider
-        const fovSlider = document.querySelector('.exo-fov input');
-        const fovDisplay = document.querySelector('.exo-fov span:last-child');
-        if(fovSlider) {
-            fovSlider.addEventListener('input', (e) => {
-                const val = e.target.value;
-                camera.fov = parseInt(val);
-                camera.updateProjectionMatrix();
-                fovDisplay.innerText = val + '°';
-            });
-        }
-
-        // Material Changes
-        window.changeMaterial = function(type, btnElement) {
-            document.querySelectorAll('.ar-panel .btn-luxury').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            if (type === 'zirconio') {
-                materials.anatomic.transmission = 0.1;
-                materials.anatomic.roughness = 0.1;
-                materials.anatomic.color.setHex(0xffffff);
-            } else if (type === 'emax') {
-                materials.anatomic.transmission = 0.6;
-                materials.anatomic.roughness = 0.05;
-                materials.anatomic.color.setHex(0xfcfcfc);
-            } else {
-                materials.anatomic.transmission = 0.3;
-                materials.anatomic.roughness = 0.2;
-                materials.anatomic.color.setHex(0xfaf0e6);
-            }
-        };
-
-        // Lighting Changes
-        const lightVal = document.getElementById('light-val');
-        window.changeLighting = function(val) {
-            if (val == 0) { // Night
-                ambientLight.intensity = 0.2;
-                mainLight.intensity = 0.3;
-                mainLight.color.setHex(0xffaa55);
-                fillLight.intensity = 0.1;
-                scene.background = new THREE.Color(0x050505);
-                lightVal.innerText = "Cena de Noche";
-            } else if (val == 1) { // Day
-                ambientLight.intensity = 0.6;
-                mainLight.intensity = 0.8;
-                mainLight.color.setHex(0xffffff);
-                fillLight.intensity = 0.5;
-                scene.background = new THREE.Color(0x111111);
-                lightVal.innerText = "Luz de Día";
-            } else { // Office
-                ambientLight.intensity = 0.8;
-                mainLight.intensity = 1.2;
-                mainLight.color.setHex(0xeef5ff);
-                fillLight.intensity = 0.8;
-                scene.background = new THREE.Color(0x222222);
-                lightVal.innerText = "Luz de Oficina";
-            }
-        };
     </script>
 </body>
 </html>
