@@ -151,10 +151,12 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    overscroll-behavior-y: contain;
 }
 
 html {
     background-color: #000; /* Forcing dark background to prevent white bleed on mobile */
+    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on mobile */
 }
 
 /* Background Canvas */
