@@ -150,21 +150,21 @@ body.dark-mode:not([data-theme]) {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    background-color: #000; /* Forcing dark background to prevent white bleed on mobile */
+    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on mobile */
+    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+    max-width: 100vw;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--bg-canvas-from, #000);
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
-    scroll-behavior: smooth;
     overscroll-behavior-y: contain;
-}
-
-html {
-    background-color: #000; /* Forcing dark background to prevent white bleed on mobile */
-    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on mobile */
-    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
-    max-width: 100vw;
 }
 
 /* Background Canvas */
@@ -2357,4 +2357,25 @@ body.dark-mode .ba-handle::after {
 .theme-swatch:hover .theme-label {
     opacity: 1;
     right: 28px;
+}
+
+/* Mobile Dropdown Fix */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: transparent !important;
+        width: 100% !important;
+    }
+    body.dark-mode .dropdown-menu {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .dropdown:hover .dropdown-menu,
+    .dropdown.active .dropdown-menu {
+        transform: none !important;
+    }
 }
