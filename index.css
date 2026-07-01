@@ -153,9 +153,6 @@ body.dark-mode:not([data-theme]) {
 html {
     scroll-behavior: smooth;
     background-color: #000; /* Forcing dark background to prevent white bleed on mobile */
-    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on mobile */
-    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
-    max-width: 100vw;
 }
 
 body {
@@ -176,7 +173,7 @@ body {
     height: 100%;
     z-index: -2;
     background: radial-gradient(circle at center, var(--bg-canvas-from) 0%, var(--bg-canvas-to) 100%);
-    transition: 0.8s all cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.8s background cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Utility Classes */
