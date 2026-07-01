@@ -19,7 +19,10 @@ updateThemeColors();
 const themeObserver = new MutationObserver(updateThemeColors);
 themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
 
+let lastCanvasWidth = window.innerWidth;
 function resizeCanvas() {
+    if (window.innerWidth === lastCanvasWidth && particles.length > 0) return;
+    lastCanvasWidth = window.innerWidth;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     particleCount = window.innerWidth < 768 ? 15 : 40;
