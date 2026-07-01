@@ -2375,4 +2375,16 @@ body.dark-mode .ba-handle::after {
     .dropdown.active .dropdown-menu {
         transform: none !important;
     }
-}
+}@ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   { 
+         *   { 
+                 b a c k d r o p - f i l t e r :   n o n e   ! i m p o r t a n t ; 
+                 - w e b k i t - b a c k d r o p - f i l t e r :   n o n e   ! i m p o r t a n t ; 
+         } 
+         . h e r o - o v e r l a y   { 
+                 a n i m a t i o n :   n o n e   ! i m p o r t a n t ; 
+         } 
+         . g l a s s - c a r d ,   . d r o p d o w n - m e n u ,   . m o b i l e - m e n u   { 
+                 b a c k g r o u n d :   r g b a ( 1 5 ,   1 5 ,   1 5 ,   0 . 9 8 )   ! i m p o r t a n t ; 
+         } 
+ }  
+ 

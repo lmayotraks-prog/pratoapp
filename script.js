@@ -69,12 +69,12 @@ function initParticles() {
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-
     if (window.innerWidth >= 768) {
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
