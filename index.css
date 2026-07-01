@@ -1642,7 +1642,6 @@ body.custom-cursor-active * {
     display: block;
 }
 
-/* After image: anchor right so it shows the Después side */
 .ba-img-after {
     object-position: right center;
 }
@@ -1704,7 +1703,6 @@ body.custom-cursor-active * {
     padding-right: 2px;
 }
 
-/* Antes / Después labels */
 .ba-label {
     position: absolute;
     top: 14px;
@@ -2365,6 +2363,7 @@ body.dark-mode .ba-handle::after {
         border: none !important;
         background: transparent !important;
         width: 100% !important;
+        display: none !important; /* Fix massive gap */
     }
     body.dark-mode .dropdown-menu {
         background: transparent !important;
@@ -2373,18 +2372,14 @@ body.dark-mode .ba-handle::after {
     }
     .dropdown:hover .dropdown-menu,
     .dropdown.active .dropdown-menu {
+        display: block !important;
         transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
-}@ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   { 
-         *   { 
-                 b a c k d r o p - f i l t e r :   n o n e   ! i m p o r t a n t ; 
-                 - w e b k i t - b a c k d r o p - f i l t e r :   n o n e   ! i m p o r t a n t ; 
-         } 
-         . h e r o - o v e r l a y   { 
-                 a n i m a t i o n :   n o n e   ! i m p o r t a n t ; 
-         } 
-         . g l a s s - c a r d ,   . d r o p d o w n - m e n u ,   . m o b i l e - m e n u   { 
-                 b a c k g r o u n d :   r g b a ( 1 5 ,   1 5 ,   1 5 ,   0 . 9 8 )   ! i m p o r t a n t ; 
-         } 
- }  
- 
+}
+@media (max-width: 768px) {
+    * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    .hero-overlay { animation: none !important; }
+    .glass-card, .dropdown-menu, .mobile-menu { background: rgba(15, 15, 15, 0.98) !important; }
+}
