@@ -2365,12 +2365,206 @@ body.dark-mode .ba-handle::after {
         width: 100% !important;
         display: none !important; /* Fix massive gap */
     }
+    cursor: ew-resize;
+    user-select: none;
+}
+
+.ba-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* The "Before" image is on top and clipped */
+.ba-before {
+    z-index: 2;
+    clip-path: inset(0 50% 0 0);
+    /* Initial state: 50% split */
+    object-position: left center;
+    /* Critical for composite images */
+}
+
+/* The "After" image is the background */
+.ba-after {
+    z-index: 1;
+    object-position: right center;
+    /* Critical for composite images */
+}
+
+/* Legend Labels */
+.ba-label {
+    position: absolute;
+    bottom: 20px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ba-label-before {
+    left: 20px;
+    border-left: 3px solid var(--primary-accent);
+}
+
+.ba-label-after {
+    right: 20px;
+    border-right: 3px solid var(--primary-accent);
+}
+
+/* The Draggable Handle */
+.ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: var(--primary-accent);
+    z-index: 10;
+    margin-left: -2px;
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+.ba-handle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    background: var(--primary-accent);
+    border: 4px solid var(--bg-main);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--primary-glow);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C/polyline%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    background-position: left 4px center, right 4px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+}
+
+body.dark-mode .ba-handle::after {
+    background-color: var(--bg-main);
+    border-color: var(--primary-accent);
+}
+
+/* Hover effects */
+.ba-slider:hover .ba-handle {
+    filter: brightness(1.2);
+}
+
+/* ========================================= */
+/* Theme Selector UI (Floating Palette)      */
+/* ========================================= */
+.theme-selector-wrap {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 15px 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+}
+
+.theme-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #ccc;
+}
+
+.theme-swatch:hover {
+    transform: scale(1.2);
+}
+
+.theme-swatch.active {
+    border-color: var(--text-main);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Hardcoded Swatch Colors for visual cues */
+.theme-swatch[data-theme-name="diamond"] {
+    background: #00d2ff;
+}
+
+.theme-swatch[data-theme-name="gold"] {
+    background: #d4af37;
+}
+
+.theme-swatch[data-theme-name="emerald"] {
+    background: #27ae60;
+}
+
+.theme-swatch[data-theme-name="ruby"] {
+    background: #e91e63;
+}
+
+.theme-swatch[data-theme-name="amethyst"] {
+    background: #9b59b6;
+}
+
+.theme-label {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-main);
+    color: var(--text-main);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    border: 1px solid var(--glass-border);
+}
+
+.theme-swatch:hover .theme-label {
+    opacity: 1;
+    right: 28px;
+}
+
+/* Mobile Dropdown Fix */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: transparent !important;
+        width: 100% !important;
+        display: none !important; /* Fix massive gap */
+    }
     body.dark-mode .dropdown-menu {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
     }
-    .dropdown:hover .dropdown-menu,
     .dropdown.active .dropdown-menu {
         display: block !important;
         transform: none !important;
